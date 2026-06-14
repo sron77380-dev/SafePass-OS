@@ -35,36 +35,28 @@ body { font-family: 'Inter', sans-serif; background: #0f172a; }
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen pb-20">
 
-<!-- ROLE SELECTOR (LOGIN) -->
+<!-- ROLE SELECTOR -->
 <div id="role-selector" class="fixed inset-0 bg-slate-900 z-50 flex flex-col items-center justify-center p-6">
   <div class="w-20 h-20 rounded-2xl bg-orange-500 flex items-center justify-center mb-6">
     <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"></path></svg>
   </div>
   <h1 class="text-2xl font-bold mb-2">SafePass OS</h1>
   <p class="text-sm text-slate-400 mb-8">Sélectionnez votre rôle</p>
-  
   <div class="w-full max-w-sm space-y-3">
     <button onclick="selectRole('supervisor')" class="w-full p-4 bg-slate-800 rounded-2xl border border-slate-700 hover:border-orange-500 hover:bg-slate-750 transition-all text-left">
       <div class="flex items-center gap-3">
         <div class="w-12 h-12 rounded-xl bg-orange-500/20 flex items-center justify-center">
           <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
         </div>
-        <div>
-          <p class="font-semibold">Superviseur</p>
-          <p class="text-xs text-slate-400">Gestion complète du site</p>
-        </div>
+        <div><p class="font-semibold">Superviseur</p><p class="text-xs text-slate-400">Gestion complète du site</p></div>
       </div>
     </button>
-    
     <button onclick="selectRole('agent')" class="w-full p-4 bg-slate-800 rounded-2xl border border-slate-700 hover:border-orange-500 hover:bg-slate-750 transition-all text-left">
       <div class="flex items-center gap-3">
         <div class="w-12 h-12 rounded-xl bg-sky-500/20 flex items-center justify-center">
           <svg class="w-6 h-6 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M8 12h8M12 8v8"></path></svg>
         </div>
-        <div>
-          <p class="font-semibold">Agent de sécurité</p>
-          <p class="text-xs text-slate-400">QR, Quizz, Mon poste</p>
-        </div>
+        <div><p class="font-semibold">Agent de sécurité</p><p class="text-xs text-slate-400">QR, Quizz, Mon poste</p></div>
       </div>
     </button>
   </div>
@@ -77,10 +69,7 @@ body { font-family: 'Inter', sans-serif; background: #0f172a; }
       <div class="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center">
         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"></path></svg>
       </div>
-      <div>
-        <h1 class="font-bold text-lg tracking-tight">SafePass</h1>
-        <p id="role-badge" class="text-[10px] text-slate-400">OS V3.2</p>
-      </div>
+      <div><h1 class="font-bold text-lg tracking-tight">SafePass</h1><p id="role-badge" class="text-[10px] text-slate-400">OS V3.2</p></div>
     </div>
     <div class="flex items-center gap-3">
       <div class="relative">
@@ -96,226 +85,124 @@ body { font-family: 'Inter', sans-serif; background: #0f172a; }
 
 <!-- SUPERVISOR DASHBOARD -->
 <div id="view-supervisor-dashboard" class="hidden max-w-6xl mx-auto px-4 py-4 space-y-4">
-  <div>
-    <h2 class="text-2xl font-bold">Dashboard</h2>
-    <p id="date-supervisor" class="text-sm text-slate-400">...</p>
-  </div>
-
+  <div><h2 class="text-2xl font-bold">Dashboard</h2><p id="date-supervisor" class="text-sm text-slate-400">...</p></div>
   <div class="grid grid-cols-3 gap-3">
     <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700">
-      <div class="flex items-start justify-between mb-2">
-        <span id="stat-available" class="text-3xl font-bold text-orange-500">02</span>
-        <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-      </div>
+      <div class="flex items-start justify-between mb-2"><span id="stat-available" class="text-3xl font-bold text-orange-500">02</span><svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
       <p class="text-xs text-slate-400">Disponibles</p>
     </div>
     <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700">
-      <div class="flex items-start justify-between mb-2">
-        <span id="stat-onsite" class="text-3xl font-bold text-orange-500">03</span>
-        <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-      </div>
+      <div class="flex items-start justify-between mb-2"><span id="stat-onsite" class="text-3xl font-bold text-orange-500">03</span><svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
       <p class="text-xs text-slate-400">En service</p>
     </div>
     <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700">
-      <div class="flex items-start justify-between mb-2">
-        <span id="stat-alerts" class="text-3xl font-bold text-orange-500">02</span>
-        <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-      </div>
+      <div class="flex items-start justify-between mb-2"><span id="stat-alerts" class="text-3xl font-bold text-orange-500">02</span><svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div>
       <p class="text-xs text-slate-400">Alertes</p>
     </div>
   </div>
-
   <div class="grid grid-cols-2 gap-3">
     <button onclick="switchView('supervisor-briefing')" class="bg-slate-800 rounded-2xl p-4 border border-slate-700 text-left hover:bg-slate-750 transition-all">
-      <div class="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center mb-3">
-        <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-      </div>
-      <p class="font-semibold text-sm">Nouveau Briefing</p>
-      <p class="text-xs text-slate-400 mt-1">Créer une consigne</p>
+      <div class="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg></div>
+      <p class="font-semibold text-sm">Nouveau Briefing</p><p class="text-xs text-slate-400 mt-1">Créer une consigne</p>
     </button>
     <button onclick="switchView('supervisor-zones')" class="bg-slate-800 rounded-2xl p-4 border border-slate-700 text-left hover:bg-slate-750 transition-all">
-      <div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center mb-3">
-        <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
-      </div>
-      <p class="font-semibold text-sm">Gérer Zones</p>
-      <p class="text-xs text-slate-400 mt-1">Assigner agents</p>
+      <div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg></div>
+      <p class="font-semibold text-sm">Gérer Zones</p><p class="text-xs text-slate-400 mt-1">Assigner agents</p>
     </button>
     <button onclick="showPlanningUpload()" class="bg-slate-800 rounded-2xl p-4 border border-slate-700 text-left hover:bg-slate-750 transition-all">
-      <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center mb-3">
-        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-      </div>
-      <p class="font-semibold text-sm">Importer Planning</p>
-      <p class="text-xs text-slate-400 mt-1">Fiche planification</p>
+      <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg></div>
+      <p class="font-semibold text-sm">Importer Planning</p><p class="text-xs text-slate-400 mt-1">Fiche planification</p>
     </button>
     <button onclick="switchView('supervisor-agents')" class="bg-slate-800 rounded-2xl p-4 border border-slate-700 text-left hover:bg-slate-750 transition-all">
-      <div class="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center mb-3">
-        <svg class="w-5 h-5 text-violet-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-      </div>
-      <p class="font-semibold text-sm">Agents</p>
-      <p class="text-xs text-slate-400 mt-1">Gérer PTI, status</p>
+      <div class="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-violet-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+      <p class="font-semibold text-sm">Agents</p><p class="text-xs text-slate-400 mt-1">Gérer PTI, status</p>
     </button>
   </div>
-
   <div>
-    <div class="flex items-center justify-between mb-3">
-      <h3 class="font-semibold text-lg">Alertes récentes</h3>
-      <button class="text-xs text-orange-500 font-medium">Voir tout</button>
-    </div>
+    <div class="flex items-center justify-between mb-3"><h3 class="font-semibold text-lg">Alertes récentes</h3><button class="text-xs text-orange-500 font-medium">Voir tout</button></div>
     <div class="space-y-2">
       <div class="bg-slate-800 rounded-xl p-3 border border-slate-700 flex items-center gap-3">
         <div class="w-2 h-2 rounded-full bg-rose-500 shrink-0"></div>
-        <div class="flex-1 min-w-0">
-          <p class="font-medium text-sm">Intrusion détectée</p>
-          <p class="text-xs text-slate-400">Accueil</p>
-          <p class="text-[10px] text-slate-500 truncate">Mouvement anormal capté par la caméra 3...</p>
-        </div>
+        <div class="flex-1 min-w-0"><p class="font-medium text-sm">Intrusion détectée</p><p class="text-xs text-slate-400">Accueil</p><p class="text-[10px] text-slate-500 truncate">Mouvement anormal capté par la caméra 3...</p></div>
         <span class="text-xs text-slate-500">16:32</span>
       </div>
       <div class="bg-slate-800 rounded-xl p-3 border border-slate-700 flex items-center gap-3">
         <div class="w-2 h-2 rounded-full bg-orange-500 shrink-0"></div>
-        <div class="flex-1 min-w-0">
-          <p class="font-medium text-sm">Retard de service</p>
-          <p class="text-xs text-slate-400">Parking</p>
-          <p class="text-[10px] text-slate-500 truncate">Agent non émargé après 15 min de retard...</p>
-        </div>
+        <div class="flex-1 min-w-0"><p class="font-medium text-sm">Retard de service</p><p class="text-xs text-slate-400">Parking</p><p class="text-[10px] text-slate-500 truncate">Agent non émargé après 15 min de retard...</p></div>
         <span class="text-xs text-slate-500">15:45</span>
       </div>
     </div>
   </div>
 </div>
 
-<!-- SUPERVISOR ZONES (SIMPLIFIED BY LEVEL) -->
+<!-- SUPERVISOR ZONES -->
 <div id="view-supervisor-zones" class="hidden max-w-6xl mx-auto px-4 py-4 space-y-4">
   <div class="flex items-center gap-2 mb-2">
-    <button onclick="switchView('supervisor-dashboard')" class="text-slate-400 hover:text-white">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
-    </button>
+    <button onclick="switchView('supervisor-dashboard')" class="text-slate-400 hover:text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg></button>
     <h2 class="text-xl font-bold">Vue d'ensemble des Zones</h2>
   </div>
   <p class="text-sm text-slate-400">4 agents répartis sur 5 zones</p>
-
-  <!-- LEVEL TABS -->
   <div class="flex bg-slate-800 rounded-xl p-1 border border-slate-700">
     <button onclick="switchLevel('n-1')" id="tab-n-1" class="flex-1 py-2 rounded-lg text-sm font-medium transition-all bg-orange-500 text-white">Niveau -1</button>
     <button onclick="switchLevel('rdc')" id="tab-rdc" class="flex-1 py-2 rounded-lg text-sm font-medium transition-all text-slate-400 hover:text-slate-200">RDC</button>
     <button onclick="switchLevel('n1')" id="tab-n1" class="flex-1 py-2 rounded-lg text-sm font-medium transition-all text-slate-400 hover:text-slate-200">Niveau +1</button>
   </div>
-
-  <!-- LEVEL -1 -->
   <div id="level-n-1" class="space-y-3">
     <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
       <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-3 h-3 rounded-full bg-orange-400"></div>
-          <div>
-            <p class="font-semibold">Quai de livraison</p>
-            <p class="text-xs text-slate-400">Sierra 9-12 · 1 agent</p>
-          </div>
-        </div>
+        <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-orange-400"></div><div><p class="font-semibold">Quai de livraison</p><p class="text-xs text-slate-400">1 agent</p></div></div>
         <button onclick="showAssignModal('z1')" class="px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/30 transition-all">Assigner</button>
       </div>
     </div>
     <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
       <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-3 h-3 rounded-full bg-violet-400"></div>
-          <div>
-            <p class="font-semibold">R-1 (Réserves)</p>
-            <p class="text-xs text-slate-400">Sierra 9-12 · 4 agents</p>
-          </div>
-        </div>
+        <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-violet-400"></div><div><p class="font-semibold">R-1 (Réserves)</p><p class="text-xs text-slate-400">4 agents</p></div></div>
         <button onclick="showAssignModal('z2')" class="px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/30 transition-all">Assigner</button>
       </div>
     </div>
   </div>
-
-  <!-- LEVEL RDC -->
   <div id="level-rdc" class="hidden space-y-3">
     <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
       <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-3 h-3 rounded-full bg-amber-400"></div>
-          <div>
-            <p class="font-semibold">Entrée Principale</p>
-            <p class="text-xs text-slate-400">Sierra 5-8 · 1 agent</p>
-          </div>
-        </div>
+        <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-amber-400"></div><div><p class="font-semibold">Entrée Principale</p><p class="text-xs text-slate-400">1 agent</p></div></div>
         <button onclick="showAssignModal('z3')" class="px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/30 transition-all">Assigner</button>
       </div>
     </div>
     <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
       <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-3 h-3 rounded-full bg-amber-400"></div>
-          <div>
-            <p class="font-semibold">Entrée Personnelle</p>
-            <p class="text-xs text-slate-400">Sierra 5-8 · 1 agent</p>
-          </div>
-        </div>
+        <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-amber-400"></div><div><p class="font-semibold">Entrée Personnelle</p><p class="text-xs text-slate-400">1 agent</p></div></div>
         <button onclick="showAssignModal('z4')" class="px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/30 transition-all">Assigner</button>
       </div>
     </div>
     <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
       <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-3 h-3 rounded-full bg-amber-400"></div>
-          <div>
-            <p class="font-semibold">Hall Accueil</p>
-            <p class="text-xs text-slate-400">Sierra 5-8 · 4 agents</p>
-          </div>
-        </div>
+        <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-amber-400"></div><div><p class="font-semibold">Hall Accueil</p><p class="text-xs text-slate-400">4 agents</p></div></div>
         <button onclick="showAssignModal('z5')" class="px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/30 transition-all">Assigner</button>
       </div>
     </div>
     <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
       <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-3 h-3 rounded-full bg-amber-400"></div>
-          <div>
-            <p class="font-semibold">Accueil Groupes</p>
-            <p class="text-xs text-slate-400">Sierra 5-8 · 1 agent</p>
-          </div>
-        </div>
+        <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-amber-400"></div><div><p class="font-semibold">Accueil Groupes</p><p class="text-xs text-slate-400">1 agent</p></div></div>
         <button onclick="showAssignModal('z6')" class="px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/30 transition-all">Assigner</button>
       </div>
     </div>
   </div>
-
-  <!-- LEVEL +1 -->
   <div id="level-n1" class="hidden space-y-3">
     <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
       <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-3 h-3 rounded-full bg-sky-400"></div>
-          <div>
-            <p class="font-semibold">Parking</p>
-            <p class="text-xs text-slate-400">Sierra 1-4 · 1 agent</p>
-          </div>
-        </div>
+        <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-sky-400"></div><div><p class="font-semibold">Parking</p><p class="text-xs text-slate-400">1 agent</p></div></div>
         <button onclick="showAssignModal('z7')" class="px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/30 transition-all">Assigner</button>
       </div>
     </div>
     <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
       <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-3 h-3 rounded-full bg-rose-400"></div>
-          <div>
-            <p class="font-semibold">Coulisses Événement</p>
-            <p class="text-xs text-slate-400">Sierra 1-4 · 4 agents</p>
-          </div>
-        </div>
+        <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-rose-400"></div><div><p class="font-semibold">Coulisses Événement</p><p class="text-xs text-slate-400">4 agents</p></div></div>
         <button onclick="showAssignModal('z8')" class="px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/30 transition-all">Assigner</button>
       </div>
     </div>
     <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
       <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-3 h-3 rounded-full bg-violet-400"></div>
-          <div>
-            <p class="font-semibold">Surveillance Nuit</p>
-            <p class="text-xs text-slate-400">Sierra 1-4 · 4 agents (18h-08h)</p>
-          </div>
-        </div>
+        <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-violet-400"></div><div><p class="font-semibold">Surveillance Nuit</p><p class="text-xs text-slate-400">4 agents (18h-08h)</p></div></div>
         <button onclick="showAssignModal('z9')" class="px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/30 transition-all">Assigner</button>
       </div>
     </div>
@@ -324,119 +211,53 @@ body { font-family: 'Inter', sans-serif; background: #0f172a; }
 
 <!-- SUPERVISOR BRIEFING -->
 <div id="view-supervisor-briefing" class="hidden max-w-6xl mx-auto px-4 py-4 space-y-4">
-  <div class="flex items-center gap-2 mb-2">
-    <button onclick="switchView('supervisor-dashboard')" class="text-slate-400 hover:text-white">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
-    </button>
-    <h2 class="text-xl font-bold">Briefings</h2>
-  </div>
+  <div class="flex items-center gap-2 mb-2"><button onclick="switchView('supervisor-dashboard')" class="text-slate-400 hover:text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg></button><h2 class="text-xl font-bold">Briefings</h2></div>
   <div class="space-y-3">
     <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700">
-      <div class="flex items-center justify-between mb-2">
-        <div class="flex items-center gap-2">
-          <div class="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center">
-            <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-          </div>
-          <p class="font-semibold text-sm">Consignes générales</p>
-        </div>
-        <span class="text-xs text-emerald-400">✓ Validé (3/8)</span>
-      </div>
+      <div class="flex items-center justify-between mb-2"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center"><svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div><p class="font-semibold text-sm">Consignes générales</p></div><span class="text-xs text-emerald-400">✓ Validé (3/8)</span></div>
       <p class="text-xs text-slate-400">Vérifier l'identité de tous les visiteurs. Signaler tout comportement suspect immédiatement.</p>
     </div>
     <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700">
-      <div class="flex items-center justify-between mb-2">
-        <div class="flex items-center gap-2">
-          <div class="w-8 h-8 rounded-lg bg-rose-500/20 flex items-center justify-center">
-            <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-          </div>
-          <p class="font-semibold text-sm">Procédure d'urgence</p>
-        </div>
-        <span class="text-xs text-emerald-400">✓ Validé (5/8)</span>
-      </div>
+      <div class="flex items-center justify-between mb-2"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-rose-500/20 flex items-center justify-center"><svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div><p class="font-semibold text-sm">Procédure d'urgence</p></div><span class="text-xs text-emerald-400">✓ Validé (5/8)</span></div>
       <p class="text-xs text-slate-400">En cas d'incident : protéger les visiteurs, alerter le superviseur, ne pas intervenir seul.</p>
     </div>
     <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700">
-      <div class="flex items-center justify-between mb-2">
-        <div class="flex items-center gap-2">
-          <div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
-            <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-          </div>
-          <p class="font-semibold text-sm">Planning du jour</p>
-        </div>
-        <span class="text-xs text-amber-400">⏳ En attente (2/8)</span>
-      </div>
+      <div class="flex items-center justify-between mb-2"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center"><svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div><p class="font-semibold text-sm">Planning du jour</p></div><span class="text-xs text-amber-400">⏳ En attente (2/8)</span></div>
       <p class="text-xs text-slate-400">Arrivée 07h, briefing 10h15, ouverture public 11h. Nocturne jusqu'à 22h ce soir.</p>
     </div>
   </div>
-  <button onclick="showNewBriefingModal()" class="w-full py-3 bg-orange-500 hover:bg-orange-400 text-white rounded-xl font-semibold transition-all">
-    + Nouveau Briefing
-  </button>
+  <button onclick="showNewBriefingModal()" class="w-full py-3 bg-orange-500 hover:bg-orange-400 text-white rounded-xl font-semibold transition-all">+ Nouveau Briefing</button>
 </div>
 
 <!-- SUPERVISOR AGENTS -->
 <div id="view-supervisor-agents" class="hidden max-w-6xl mx-auto px-4 py-4 space-y-4">
-  <div class="flex items-center gap-2 mb-2">
-    <button onclick="switchView('supervisor-dashboard')" class="text-slate-400 hover:text-white">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
-    </button>
-    <h2 class="text-xl font-bold">Agents</h2>
-  </div>
+  <div class="flex items-center gap-2 mb-2"><button onclick="switchView('supervisor-dashboard')" class="text-slate-400 hover:text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg></button><h2 class="text-xl font-bold">Agents</h2></div>
   <div class="grid grid-cols-2 gap-3">
-    <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700 text-center">
-      <span class="text-2xl font-bold text-orange-500">8</span>
-      <p class="text-xs text-slate-400 mt-1">Total agents</p>
-    </div>
-    <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700 text-center">
-      <span class="text-2xl font-bold text-emerald-500">3</span>
-      <p class="text-xs text-slate-400 mt-1">En poste</p>
-    </div>
+    <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700 text-center"><span class="text-2xl font-bold text-orange-500">8</span><p class="text-xs text-slate-400 mt-1">Total agents</p></div>
+    <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700 text-center"><span class="text-2xl font-bold text-emerald-500">3</span><p class="text-xs text-slate-400 mt-1">En poste</p></div>
   </div>
   <div id="agents-list-supervisor" class="space-y-2"></div>
 </div>
 
 <!-- SUPERVISOR QUIZZ -->
 <div id="view-supervisor-quizz" class="hidden max-w-6xl mx-auto px-4 py-4 space-y-4">
-  <div class="flex items-center gap-2 mb-2">
-    <button onclick="switchView('supervisor-dashboard')" class="text-slate-400 hover:text-white">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
-    </button>
-    <h2 class="text-xl font-bold">Gestion Quizz</h2>
-  </div>
+  <div class="flex items-center gap-2 mb-2"><button onclick="switchView('supervisor-dashboard')" class="text-slate-400 hover:text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg></button><h2 class="text-xl font-bold">Gestion Quizz</h2></div>
   <div class="grid grid-cols-2 gap-3">
     <button onclick="switchView('supervisor-quizz-results')" class="bg-slate-800 rounded-2xl p-4 border border-slate-700 text-center hover:bg-slate-750 transition-all">
-      <div class="w-10 h-10 mx-auto rounded-xl bg-emerald-500/20 flex items-center justify-center mb-2">
-        <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-      </div>
-      <p class="font-semibold text-sm">Résultats</p>
-      <p class="text-xs text-slate-400">Voir les scores</p>
+      <div class="w-10 h-10 mx-auto rounded-xl bg-emerald-500/20 flex items-center justify-center mb-2"><svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg></div>
+      <p class="font-semibold text-sm">Résultats</p><p class="text-xs text-slate-400">Voir les scores</p>
     </button>
     <button onclick="showSendQuizzModal()" class="bg-slate-800 rounded-2xl p-4 border border-slate-700 text-center hover:bg-slate-750 transition-all">
-      <div class="w-10 h-10 mx-auto rounded-xl bg-violet-500/20 flex items-center justify-center mb-2">
-        <svg class="w-5 h-5 text-violet-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-      </div>
-      <p class="font-semibold text-sm">Envoyer Quizz</p>
-      <p class="text-xs text-slate-400">Aux agents</p>
+      <div class="w-10 h-10 mx-auto rounded-xl bg-violet-500/20 flex items-center justify-center mb-2"><svg class="w-5 h-5 text-violet-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg></div>
+      <p class="font-semibold text-sm">Envoyer Quizz</p><p class="text-xs text-slate-400">Aux agents</p>
     </button>
   </div>
   <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700">
     <h3 class="font-semibold mb-3">Programmer un quizz</h3>
     <div class="space-y-3">
-      <div>
-        <p class="text-xs text-slate-400 mb-1">Titre</p>
-        <input id="quizz-title" type="text" placeholder="Ex: Quizz sécurité mensuel" class="w-full bg-slate-700 rounded-xl px-4 py-2 text-sm text-white placeholder-slate-500 border border-slate-600 focus:outline-none focus:border-orange-500">
-      </div>
-      <div>
-        <p class="text-xs text-slate-400 mb-1">Date</p>
-        <input id="quizz-date" type="date" class="w-full bg-slate-700 rounded-xl px-4 py-2 text-sm text-white border border-slate-600 focus:outline-none focus:border-orange-500">
-      </div>
-      <div>
-        <p class="text-xs text-slate-400 mb-1">Questions</p>
-        <select id="quizz-count" class="w-full bg-slate-700 rounded-xl px-4 py-2 text-sm text-white border border-slate-600 focus:outline-none focus:border-orange-500">
-          <option value="15">15 questions</option>
-          <option value="10">10 questions</option>
-          <option value="5">5 questions</option>
-        </select>
-      </div>
+      <div><p class="text-xs text-slate-400 mb-1">Titre</p><input id="quizz-title" type="text" placeholder="Ex: Quizz sécurité mensuel" class="w-full bg-slate-700 rounded-xl px-4 py-2 text-sm text-white placeholder-slate-500 border border-slate-600 focus:outline-none focus:border-orange-500"></div>
+      <div><p class="text-xs text-slate-400 mb-1">Date</p><input id="quizz-date" type="date" class="w-full bg-slate-700 rounded-xl px-4 py-2 text-sm text-white border border-slate-600 focus:outline-none focus:border-orange-500"></div>
+      <div><p class="text-xs text-slate-400 mb-1">Questions</p><select id="quizz-count" class="w-full bg-slate-700 rounded-xl px-4 py-2 text-sm text-white border border-slate-600 focus:outline-none focus:border-orange-500"><option value="15">15 questions</option><option value="10">10 questions</option><option value="5">5 questions</option></select></div>
       <button onclick="programQuizz()" class="w-full py-3 bg-orange-500 hover:bg-orange-400 text-white rounded-xl font-semibold transition-all">Programmer</button>
     </div>
   </div>
@@ -444,49 +265,11 @@ body { font-family: 'Inter', sans-serif; background: #0f172a; }
 
 <!-- SUPERVISOR QUIZZ RESULTS -->
 <div id="view-supervisor-quizz-results" class="hidden max-w-6xl mx-auto px-4 py-4 space-y-4">
-  <div class="flex items-center gap-2 mb-2">
-    <button onclick="switchView('supervisor-quizz')" class="text-slate-400 hover:text-white">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
-    </button>
-    <h2 class="text-xl font-bold">Résultats Quizz</h2>
-  </div>
+  <div class="flex items-center gap-2 mb-2"><button onclick="switchView('supervisor-quizz')" class="text-slate-400 hover:text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg></button><h2 class="text-xl font-bold">Résultats Quizz</h2></div>
   <div class="space-y-3">
-    <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700">
-      <div class="flex items-center justify-between mb-2">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-sm font-bold">MD</div>
-          <div>
-            <p class="font-medium">Martin D.</p>
-            <p class="text-xs text-slate-400">Dernier: 14/15 · Badge Or</p>
-          </div>
-        </div>
-        <span class="text-xl font-bold text-emerald-400">93%</span>
-      </div>
-    </div>
-    <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700">
-      <div class="flex items-center justify-between mb-2">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-sm font-bold">SL</div>
-          <div>
-            <p class="font-medium">Sophie L.</p>
-            <p class="text-xs text-slate-400">Dernier: 12/15 · Badge Argent</p>
-          </div>
-        </div>
-        <span class="text-xl font-bold text-emerald-400">80%</span>
-      </div>
-    </div>
-    <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700">
-      <div class="flex items-center justify-between mb-2">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center text-sm font-bold">KB</div>
-          <div>
-            <p class="font-medium">Karim B.</p>
-            <p class="text-xs text-slate-400">Dernier: 9/15 · Badge Bronze</p>
-          </div>
-        </div>
-        <span class="text-xl font-bold text-amber-400">60%</span>
-      </div>
-    </div>
+    <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700"><div class="flex items-center justify-between mb-2"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-sm font-bold">MD</div><div><p class="font-medium">Martin D.</p><p class="text-xs text-slate-400">Dernier: 14/15 · Badge Or</p></div></div><span class="text-xl font-bold text-emerald-400">93%</span></div></div>
+    <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700"><div class="flex items-center justify-between mb-2"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-sm font-bold">SL</div><div><p class="font-medium">Sophie L.</p><p class="text-xs text-slate-400">Dernier: 12/15 · Badge Argent</p></div></div><span class="text-xl font-bold text-emerald-400">80%</span></div></div>
+    <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700"><div class="flex items-center justify-between mb-2"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center text-sm font-bold">KB</div><div><p class="font-medium">Karim B.</p><p class="text-xs text-slate-400">Dernier: 9/15 · Badge Bronze</p></div></div><span class="text-xl font-bold text-amber-400">60%</span></div></div>
   </div>
 </div>
 
@@ -495,41 +278,25 @@ body { font-family: 'Inter', sans-serif; background: #0f172a; }
 <!-- AGENT DASHBOARD -->
 <div id="view-agent-dashboard" class="hidden max-w-6xl mx-auto px-4 py-4 space-y-4">
   <div class="text-center mb-4">
-    <div class="w-16 h-16 mx-auto rounded-full bg-sky-500/20 flex items-center justify-center border-2 border-sky-500/30 mb-2">
-      <span id="agent-avatar" class="text-xl font-bold text-sky-400">MD</span>
-    </div>
-    <p id="agent-name" class="font-bold">Martin D.</p>
-    <p id="agent-pti" class="text-xs text-slate-400">PTI: 4521</p>
+    <div class="w-16 h-16 mx-auto rounded-full bg-sky-500/20 flex items-center justify-center border-2 border-sky-500/30 mb-2"><span id="agent-avatar" class="text-xl font-bold text-sky-400">MD</span></div>
+    <p id="agent-name" class="font-bold">Martin D.</p><p id="agent-pti" class="text-xs text-slate-400">PTI: 4521</p>
   </div>
-
   <div class="grid grid-cols-2 gap-3">
     <button onclick="switchView('agent-scan')" class="bg-slate-800 rounded-2xl p-4 border border-slate-700 text-center hover:bg-slate-750 transition-all">
-      <div class="w-10 h-10 mx-auto rounded-xl bg-orange-500/20 flex items-center justify-center mb-2">
-        <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M8 12h8M12 8v8"></path></svg>
-      </div>
-      <p class="font-semibold text-sm">Mon QR</p>
-      <p class="text-xs text-slate-400">Émarger</p>
+      <div class="w-10 h-10 mx-auto rounded-xl bg-orange-500/20 flex items-center justify-center mb-2"><svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M8 12h8M12 8v8"></path></svg></div>
+      <p class="font-semibold text-sm">Mon QR</p><p class="text-xs text-slate-400">Émarger</p>
     </button>
     <button onclick="switchView('agent-poste')" class="bg-slate-800 rounded-2xl p-4 border border-slate-700 text-center hover:bg-slate-750 transition-all">
-      <div class="w-10 h-10 mx-auto rounded-xl bg-sky-500/20 flex items-center justify-center mb-2">
-        <svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-      </div>
-      <p class="font-semibold text-sm">Mon Poste</p>
-      <p class="text-xs text-slate-400">Assignation</p>
+      <div class="w-10 h-10 mx-auto rounded-xl bg-sky-500/20 flex items-center justify-center mb-2"><svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+      <p class="font-semibold text-sm">Mon Poste</p><p class="text-xs text-slate-400">Assignation</p>
     </button>
     <button onclick="switchView('agent-quiz')" class="bg-slate-800 rounded-2xl p-4 border border-slate-700 text-center hover:bg-slate-750 transition-all">
-      <div class="w-10 h-10 mx-auto rounded-xl bg-violet-500/20 flex items-center justify-center mb-2">
-        <svg class="w-5 h-5 text-violet-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-      </div>
-      <p class="font-semibold text-sm">Quizz</p>
-      <p class="text-xs text-slate-400">Entraînement</p>
+      <div class="w-10 h-10 mx-auto rounded-xl bg-violet-500/20 flex items-center justify-center mb-2"><svg class="w-5 h-5 text-violet-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+      <p class="font-semibold text-sm">Quizz</p><p class="text-xs text-slate-400">Entraînement</p>
     </button>
     <button onclick="switchView('agent-briefings')" class="bg-slate-800 rounded-2xl p-4 border border-slate-700 text-center hover:bg-slate-750 transition-all">
-      <div class="w-10 h-10 mx-auto rounded-xl bg-blue-500/20 flex items-center justify-center mb-2">
-        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-      </div>
-      <p class="font-semibold text-sm">Briefings</p>
-      <p class="text-xs text-slate-400">Signer</p>
+      <div class="w-10 h-10 mx-auto rounded-xl bg-blue-500/20 flex items-center justify-center mb-2"><svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div>
+      <p class="font-semibold text-sm">Briefings</p><p class="text-xs text-slate-400">Signer</p>
     </button>
   </div>
 </div>
@@ -541,25 +308,13 @@ body { font-family: 'Inter', sans-serif; background: #0f172a; }
       <div class="absolute inset-0 bg-orange-500/10 scan-laser"></div>
       <svg class="w-10 h-10 text-orange-500 relative z-10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M8 12h8M12 8v8"></path></svg>
     </div>
-    <h2 class="text-xl font-bold">Mon QR SafePass</h2>
-    <p class="text-sm text-slate-400">Scannez pour émarger</p>
+    <h2 class="text-xl font-bold">Mon QR SafePass</h2><p class="text-sm text-slate-400">Scannez pour émarger</p>
   </div>
-
-  <div id="agent-qr-card" class="bg-white p-6 rounded-2xl mx-auto inline-block">
-    <div id="agent-qr-display"></div>
-  </div>
-
+  <div id="agent-qr-card" class="bg-white p-6 rounded-2xl mx-auto inline-block"><div id="agent-qr-display"></div></div>
   <div class="grid grid-cols-2 gap-3">
-    <button onclick="agentCheckIn()" class="py-3 bg-emerald-500 hover:bg-emerald-400 text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
-      Prise de poste
-    </button>
-    <button onclick="agentCheckOut()" class="py-3 bg-rose-500 hover:bg-rose-400 text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"></path></svg>
-      Fin de service
-    </button>
+    <button onclick="agentCheckIn()" class="py-3 bg-emerald-500 hover:bg-emerald-400 text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>Prise de poste</button>
+    <button onclick="agentCheckOut()" class="py-3 bg-rose-500 hover:bg-rose-400 text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"></path></svg>Fin de service</button>
   </div>
-
   <div id="agent-history" class="bg-slate-800 rounded-2xl p-4 border border-slate-700">
     <h3 class="font-semibold mb-3 text-sm">Historique aujourd'hui</h3>
     <div id="agent-history-list" class="space-y-2"></div>
@@ -568,46 +323,25 @@ body { font-family: 'Inter', sans-serif; background: #0f172a; }
 
 <!-- AGENT POSTE -->
 <div id="view-agent-poste" class="hidden max-w-6xl mx-auto px-4 py-4 space-y-4">
-  <div class="flex items-center gap-2 mb-2">
-    <button onclick="switchView('agent-dashboard')" class="text-slate-400 hover:text-white">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
-    </button>
-    <h2 class="text-xl font-bold">Mon Poste</h2>
-  </div>
+  <div class="flex items-center gap-2 mb-2"><button onclick="switchView('agent-dashboard')" class="text-slate-400 hover:text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg></button><h2 class="text-xl font-bold">Mon Poste</h2></div>
   <div id="agent-poste-info" class="bg-slate-800 rounded-2xl p-6 border border-slate-700 text-center">
-    <div class="w-16 h-16 mx-auto rounded-full bg-sky-500/20 flex items-center justify-center mb-3">
-      <svg class="w-8 h-8 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-    </div>
+    <div class="w-16 h-16 mx-auto rounded-full bg-sky-500/20 flex items-center justify-center mb-3"><svg class="w-8 h-8 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
     <p id="agent-poste-name" class="text-xl font-bold mb-1">Entrée Principale</p>
-    <p id="agent-poste-level" class="text-sm text-slate-400 mb-4">RDC — Sierra 5-8</p>
+    <p id="agent-poste-level" class="text-sm text-slate-400 mb-4">RDC — Sierra non assigné</p>
     <div class="grid grid-cols-2 gap-3 text-left">
-      <div class="bg-slate-700/50 rounded-xl p-3">
-        <p class="text-xs text-slate-400">Début de service</p>
-        <p id="agent-poste-start" class="font-semibold">07:00</p>
-      </div>
-      <div class="bg-slate-700/50 rounded-xl p-3">
-        <p class="text-xs text-slate-400">Fin prévue</p>
-        <p id="agent-poste-end" class="font-semibold">15:00</p>
-      </div>
+      <div class="bg-slate-700/50 rounded-xl p-3"><p class="text-xs text-slate-400">Début de service</p><p id="agent-poste-start" class="font-semibold">07:00</p></div>
+      <div class="bg-slate-700/50 rounded-xl p-3"><p class="text-xs text-slate-400">Fin prévue</p><p id="agent-poste-end" class="font-semibold">15:00</p></div>
     </div>
   </div>
 </div>
 
 <!-- AGENT QUIZ -->
 <div id="view-agent-quiz" class="hidden max-w-6xl mx-auto px-4 py-4 space-y-4">
-  <div class="flex items-center gap-2 mb-2">
-    <button onclick="switchView('agent-dashboard')" class="text-slate-400 hover:text-white">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
-    </button>
-    <h2 class="text-xl font-bold">Quizz SafePass</h2>
-  </div>
+  <div class="flex items-center gap-2 mb-2"><button onclick="switchView('agent-dashboard')" class="text-slate-400 hover:text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg></button><h2 class="text-xl font-bold">Quizz SafePass</h2></div>
   <div id="agent-quiz-container" class="space-y-4">
     <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700 text-center">
-      <div class="w-16 h-16 mx-auto rounded-full bg-violet-500/20 flex items-center justify-center mb-4">
-        <svg class="w-8 h-8 text-violet-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-      </div>
-      <p class="font-semibold mb-2">Testez vos connaissances</p>
-      <p class="text-xs text-slate-400 mb-4">15 questions sur la sécurité, les œuvres Sierra et les procédures</p>
+      <div class="w-16 h-16 mx-auto rounded-full bg-violet-500/20 flex items-center justify-center mb-4"><svg class="w-8 h-8 text-violet-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+      <p class="font-semibold mb-2">Testez vos connaissances</p><p class="text-xs text-slate-400 mb-4">15 questions sur la sécurité, les œuvres Sierra et les procédures</p>
       <button onclick="startAgentQuiz()" class="px-6 py-3 bg-violet-500 hover:bg-violet-400 text-white rounded-xl font-semibold transition-all">Commencer</button>
     </div>
   </div>
@@ -615,12 +349,7 @@ body { font-family: 'Inter', sans-serif; background: #0f172a; }
 
 <!-- AGENT BRIEFINGS -->
 <div id="view-agent-briefings" class="hidden max-w-6xl mx-auto px-4 py-4 space-y-4">
-  <div class="flex items-center gap-2 mb-2">
-    <button onclick="switchView('agent-dashboard')" class="text-slate-400 hover:text-white">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
-    </button>
-    <h2 class="text-xl font-bold">Mes Briefings</h2>
-  </div>
+  <div class="flex items-center gap-2 mb-2"><button onclick="switchView('agent-dashboard')" class="text-slate-400 hover:text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg></button><h2 class="text-xl font-bold">Mes Briefings</h2></div>
   <div id="agent-briefing-list" class="space-y-3"></div>
 </div>
 
@@ -630,12 +359,15 @@ body { font-family: 'Inter', sans-serif; background: #0f172a; }
 <div id="assign-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
   <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-sm w-full space-y-4 slide-up">
     <h3 id="assign-modal-title" class="font-bold text-lg">Assigner un agent</h3>
-    <div id="assign-modal-zone-info" class="text-xs text-slate-400"></div>
-    <div id="assign-agent-list" class="space-y-2 max-h-60 overflow-y-auto hide-scrollbar">
-      <!-- Filled dynamically -->
+    <p class="text-xs text-slate-400">Choisir un agent et un numéro Sierra</p>
+    <div id="assign-agent-list" class="space-y-2 max-h-60 overflow-y-auto hide-scrollbar"></div>
+    <div class="border-t border-slate-700 pt-3">
+      <p class="text-xs text-slate-400 mb-2">Sierra assigné</p>
+      <div id="sierra-selector" class="grid grid-cols-6 gap-2"></div>
     </div>
     <div class="flex gap-2">
       <button onclick="closeAssignModal()" class="flex-1 py-3 bg-slate-800 hover:bg-slate-700 rounded-xl font-medium transition-all">Annuler</button>
+      <button onclick="assignAgentToZone()" class="flex-1 py-3 bg-orange-500 hover:bg-orange-400 text-white rounded-xl font-medium transition-all">Valider</button>
     </div>
   </div>
 </div>
@@ -653,7 +385,7 @@ body { font-family: 'Inter', sans-serif; background: #0f172a; }
   </div>
 </div>
 
-<!-- SIGN BRIEFING MODAL (SIGNATURE PAD) -->
+<!-- SIGN BRIEFING MODAL -->
 <div id="sign-briefing-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
   <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-sm w-full space-y-4 slide-up">
     <h3 id="sign-briefing-title" class="font-bold text-lg">Signer le briefing</h3>
@@ -680,10 +412,7 @@ body { font-family: 'Inter', sans-serif; background: #0f172a; }
       <input type="file" id="planning-file" accept=".pdf,.xlsx,.xls,.png,.jpg,.jpeg" class="hidden" onchange="handleFileUpload(this)">
       <button onclick="document.getElementById('planning-file').click()" class="mt-2 px-4 py-2 bg-orange-500/20 text-orange-400 rounded-lg text-sm font-medium">Choisir un fichier</button>
     </div>
-    <div id="uploaded-file-info" class="hidden bg-slate-800 rounded-xl p-3 border border-slate-700">
-      <p id="uploaded-file-name" class="text-sm font-medium"></p>
-      <p class="text-xs text-slate-400">Fichier prêt à synchroniser</p>
-    </div>
+    <div id="uploaded-file-info" class="hidden bg-slate-800 rounded-xl p-3 border border-slate-700"><p id="uploaded-file-name" class="text-sm font-medium"></p><p class="text-xs text-slate-400">Fichier prêt à synchroniser</p></div>
     <div class="flex gap-2">
       <button onclick="closePlanningUpload()" class="flex-1 py-3 bg-slate-800 hover:bg-slate-700 rounded-xl font-medium transition-all">Annuler</button>
       <button onclick="syncPlanning()" class="flex-1 py-3 bg-orange-500 hover:bg-orange-400 text-white rounded-xl font-medium transition-all">Synchroniser</button>
@@ -696,9 +425,7 @@ body { font-family: 'Inter', sans-serif; background: #0f172a; }
   <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-sm w-full space-y-4 slide-up">
     <h3 class="font-bold text-lg">Envoyer un Quizz</h3>
     <p class="text-xs text-slate-400">Sélectionnez les agents à qui envoyer le quizz</p>
-    <div id="send-quizz-agent-list" class="space-y-2 max-h-60 overflow-y-auto hide-scrollbar">
-      <!-- Filled dynamically -->
-    </div>
+    <div id="send-quizz-agent-list" class="space-y-2 max-h-60 overflow-y-auto hide-scrollbar"></div>
     <div class="flex gap-2">
       <button onclick="closeSendQuizzModal()" class="flex-1 py-3 bg-slate-800 hover:bg-slate-700 rounded-xl font-medium transition-all">Annuler</button>
       <button onclick="sendQuizzToAgents()" class="flex-1 py-3 bg-violet-500 hover:bg-violet-400 text-white rounded-xl font-medium transition-all">Envoyer</button>
@@ -770,6 +497,8 @@ let currentBriefingToSign = null;
 let currentQuizQuestion = 0;
 let quizScore = 0;
 let currentZoneToAssign = null;
+let selectedAgentForZone = null;
+let selectedSierra = null;
 let checkInHistory = JSON.parse(localStorage.getItem('safepass_history')) || [];
 let quizResults = JSON.parse(localStorage.getItem('safepass_quiz_results')) || [];
 
@@ -781,31 +510,31 @@ const BRIEFINGS = [
 
 const ZONES_BY_LEVEL = {
   'n-1': [
-    { id: 'z1', name: 'Quai de livraison', type: 'logistique', color: 'bg-orange-400', sierra: '9-12', agents: 1, assigned: null },
-    { id: 'z2', name: 'R-1 (Réserves)', type: 'nocturne', color: 'bg-violet-400', sierra: '9-12', agents: 4, assigned: null },
+    { id: 'z1', name: 'Quai de livraison', type: 'logistique', color: 'bg-orange-400', agents: 1, assigned: null },
+    { id: 'z2', name: 'R-1 (Réserves)', type: 'nocturne', color: 'bg-violet-400', agents: 4, assigned: null },
   ],
   'rdc': [
-    { id: 'z3', name: 'Entrée Principale', type: 'accueil', color: 'bg-amber-400', sierra: '5-8', agents: 1, assigned: 'a1' },
-    { id: 'z4', name: 'Entrée Personnelle', type: 'accueil', color: 'bg-amber-400', sierra: '5-8', agents: 1, assigned: 'a2' },
-    { id: 'z5', name: 'Hall Accueil', type: 'accueil', color: 'bg-amber-400', sierra: '5-8', agents: 4, assigned: 'a6' },
-    { id: 'z6', name: 'Accueil Groupes', type: 'accueil', color: 'bg-amber-400', sierra: '5-8', agents: 1, assigned: null },
+    { id: 'z3', name: 'Entrée Principale', type: 'accueil', color: 'bg-amber-400', agents: 1, assigned: 'a1' },
+    { id: 'z4', name: 'Entrée Personnelle', type: 'accueil', color: 'bg-amber-400', agents: 1, assigned: 'a2' },
+    { id: 'z5', name: 'Hall Accueil', type: 'accueil', color: 'bg-amber-400', agents: 4, assigned: 'a6' },
+    { id: 'z6', name: 'Accueil Groupes', type: 'accueil', color: 'bg-amber-400', agents: 1, assigned: null },
   ],
   'n1': [
-    { id: 'z7', name: 'Parking', type: 'exterieur', color: 'bg-sky-400', sierra: '1-4', agents: 1, assigned: 'a8' },
-    { id: 'z8', name: 'Coulisses Événement', type: 'evenement', color: 'bg-rose-400', sierra: '1-4', agents: 4, assigned: null },
-    { id: 'z9', name: 'Surveillance Nuit', type: 'nocturne', color: 'bg-violet-400', sierra: '1-4', agents: 4, assigned: null },
+    { id: 'z7', name: 'Parking', type: 'exterieur', color: 'bg-sky-400', agents: 1, assigned: 'a8' },
+    { id: 'z8', name: 'Coulisses Événement', type: 'evenement', color: 'bg-rose-400', agents: 4, assigned: null },
+    { id: 'z9', name: 'Surveillance Nuit', type: 'nocturne', color: 'bg-violet-400', agents: 4, assigned: null },
   ],
 };
 
 const AGENTS = [
-  { id: 'a1', name: 'Martin D.', pti: '4521', status: 'on_site', zone: 'z3', checkIn: '07:00', avatar: 'MD' },
-  { id: 'a2', name: 'Sophie L.', pti: '4522', status: 'on_site', zone: 'z4', checkIn: '07:00', avatar: 'SL' },
-  { id: 'a3', name: 'Karim B.', pti: '4523', status: 'briefing', zone: null, checkIn: '08:00', avatar: 'KB' },
-  { id: 'a4', name: 'Elena R.', pti: '4524', status: 'en_pause', zone: null, checkIn: '08:00', avatar: 'ER' },
-  { id: 'a5', name: 'Jean R.', pti: '4525', status: 'en_route', zone: null, checkIn: null, avatar: 'JR' },
-  { id: 'a6', name: 'Lucas T.', pti: '4526', status: 'on_site', zone: 'z5', checkIn: '09:00', avatar: 'LT' },
-  { id: 'a7', name: 'Aisha N.', pti: '4527', status: 'en_route', zone: null, checkIn: null, avatar: 'AN' },
-  { id: 'a8', name: 'Tom C.', pti: '4528', status: 'on_site', zone: 'z7', checkIn: '10:15', avatar: 'TC' },
+  { id: 'a1', name: 'Martin D.', pti: '4521', status: 'on_site', zone: 'z3', sierra: 5, checkIn: '07:00', avatar: 'MD' },
+  { id: 'a2', name: 'Sophie L.', pti: '4522', status: 'on_site', zone: 'z4', sierra: 6, checkIn: '07:00', avatar: 'SL' },
+  { id: 'a3', name: 'Karim B.', pti: '4523', status: 'briefing', zone: null, sierra: null, checkIn: '08:00', avatar: 'KB' },
+  { id: 'a4', name: 'Elena R.', pti: '4524', status: 'en_pause', zone: null, sierra: null, checkIn: '08:00', avatar: 'ER' },
+  { id: 'a5', name: 'Jean R.', pti: '4525', status: 'en_route', zone: null, sierra: null, checkIn: null, avatar: 'JR' },
+  { id: 'a6', name: 'Lucas T.', pti: '4526', status: 'on_site', zone: 'z5', sierra: 7, checkIn: '09:00', avatar: 'LT' },
+  { id: 'a7', name: 'Aisha N.', pti: '4527', status: 'en_route', zone: null, sierra: null, checkIn: null, avatar: 'AN' },
+  { id: 'a8', name: 'Tom C.', pti: '4528', status: 'on_site', zone: 'z7', sierra: 1, checkIn: '10:15', avatar: 'TC' },
 ];
 
 const QUIZ_QUESTIONS = [
@@ -831,7 +560,6 @@ function selectRole(role) {
   currentRole = role;
   document.getElementById('role-selector').classList.add('hidden');
   document.getElementById('role-badge').textContent = role === 'supervisor' ? 'Superviseur' : 'Agent';
-  
   if (role === 'supervisor') {
     document.getElementById('nav-supervisor').classList.remove('hidden');
     document.getElementById('nav-agent').classList.add('hidden');
@@ -843,7 +571,6 @@ function selectRole(role) {
     switchView('agent-dashboard');
   }
 }
-
 function switchRole() {
   document.getElementById('role-selector').classList.remove('hidden');
   document.getElementById('nav-supervisor').classList.add('hidden');
@@ -856,7 +583,6 @@ function switchView(view) {
   document.querySelectorAll('[id^="view-"]').forEach(el => el.classList.add('hidden'));
   const target = document.getElementById('view-' + view);
   if (target) target.classList.remove('hidden');
-  
   if (currentRole === 'supervisor') {
     ['supervisor-dashboard','supervisor-zones','supervisor-briefing','supervisor-quizz','supervisor-agents'].forEach(id => {
       const el = document.getElementById('nav-' + id);
@@ -868,7 +594,6 @@ function switchView(view) {
       if (el) el.className = 'flex flex-col items-center gap-1 px-3 py-1 rounded-lg transition-all ' + (id === view ? 'text-orange-500' : 'text-slate-400 hover:text-slate-200');
     });
   }
-  
   if (view === 'supervisor-zones') renderLevelZones();
   if (view === 'supervisor-agents') renderSupervisorAgents();
   if (view === 'agent-scan') renderAgentQR();
@@ -877,14 +602,12 @@ function switchView(view) {
   if (view === 'agent-dashboard') renderAgentHistory();
 }
 
-// ================== DATE ==================
+// ================== DATE & STATS ==================
 function updateDate() {
   const now = new Date();
   document.getElementById('date-supervisor').textContent = now.toLocaleDateString('fr-FR', {weekday:'long', day:'numeric', month:'long'});
 }
 updateDate();
-
-// ================== STATS ==================
 function updateStats() {
   const available = AGENTS.filter(a => a.status === 'en_route' || a.status === 'briefing').length;
   const onsite = AGENTS.filter(a => a.status === 'on_site').length;
@@ -904,57 +627,69 @@ function switchLevel(level) {
     if (tab) tab.className = 'flex-1 py-2 rounded-lg text-sm font-medium transition-all ' + (l === level ? 'bg-orange-500 text-white' : 'text-slate-400 hover:text-slate-200');
   });
 }
-
-function renderLevelZones() {
-  switchLevel(currentLevel);
-}
+function renderLevelZones() { switchLevel(currentLevel); }
 
 // ================== ASSIGN AGENT ==================
 function showAssignModal(zoneId) {
   currentZoneToAssign = zoneId;
+  selectedAgentForZone = null;
+  selectedSierra = null;
   const zone = findZone(zoneId);
   if (!zone) return;
   document.getElementById('assign-modal-title').textContent = 'Assigner à ' + zone.name;
-  document.getElementById('assign-modal-zone-info').textContent = 'Sierra ' + zone.sierra + ' · ' + zone.agents + ' agent(s) requis';
-  
   const availableAgents = AGENTS.filter(a => a.status !== 'en_route');
   document.getElementById('assign-agent-list').innerHTML = availableAgents.map(agent => {
     const isAssigned = zone.assigned === agent.id;
-    return `<button onclick="assignAgentToZone('${agent.id}')" class="w-full text-left p-3 rounded-xl ${isAssigned ? 'bg-emerald-500/20 border border-emerald-500/50' : 'bg-slate-700/50 border border-slate-700'} transition-all flex items-center gap-3">
+    return `<button onclick="selectAgentForZone('${agent.id}')" id="agent-select-${agent.id}" class="w-full text-left p-3 rounded-xl ${isAssigned ? 'bg-emerald-500/20 border border-emerald-500/50' : 'bg-slate-700/50 border border-slate-700'} transition-all flex items-center gap-3">
       <div class="w-10 h-10 rounded-full ${getStatusColor(agent.status)} flex items-center justify-center text-sm font-bold">${agent.avatar}</div>
-      <div class="flex-1">
-        <p class="font-medium text-sm">${agent.name}</p>
-        <p class="text-xs text-slate-400">PTI: ${agent.pti} · ${isAssigned ? 'Déjà assigné' : 'Disponible'}</p>
-      </div>
+      <div class="flex-1"><p class="font-medium text-sm">${agent.name}</p><p class="text-xs text-slate-400">PTI: ${agent.pti} · ${isAssigned ? 'Assigné ici' : 'Disponible'}</p></div>
       ${isAssigned ? '<span class="text-emerald-400 text-xs">✓</span>' : ''}
     </button>`;
   }).join('');
-  
+  // Sierra selector
+  document.getElementById('sierra-selector').innerHTML = Array.from({length: 12}, (_, i) => {
+    const num = i + 1;
+    return `<button onclick="selectSierra(${num})" id="sierra-${num}" class="py-2 rounded-lg bg-slate-700 text-xs font-medium text-slate-300 hover:bg-orange-500/30 transition-all sierra-btn">${num}</button>`;
+  }).join('');
   document.getElementById('assign-modal').classList.remove('hidden');
 }
-
 function closeAssignModal() {
   document.getElementById('assign-modal').classList.add('hidden');
   currentZoneToAssign = null;
+  selectedAgentForZone = null;
+  selectedSierra = null;
 }
-
-function assignAgentToZone(agentId) {
-  if (!currentZoneToAssign) return;
-  const zone = findZone(currentZoneToAssign);
-  const agent = AGENTS.find(a => a.id === agentId);
-  if (!zone || !agent) return;
-  
-  // Unassign if already assigned to this zone
-  if (zone.assigned === agentId) {
-    zone.assigned = null;
-    agent.zone = null;
-  } else {
-    // Assign
-    zone.assigned = agentId;
-    agent.zone = currentZoneToAssign;
+function selectAgentForZone(agentId) {
+  selectedAgentForZone = agentId;
+  document.querySelectorAll('[id^="agent-select-"]').forEach(el => {
+    el.classList.remove('bg-emerald-500/20', 'border-emerald-500/50');
+    el.classList.add('bg-slate-700/50', 'border-slate-700');
+  });
+  const el = document.getElementById('agent-select-' + agentId);
+  if (el) { el.classList.remove('bg-slate-700/50', 'border-slate-700'); el.classList.add('bg-emerald-500/20', 'border-emerald-500/50'); }
+}
+function selectSierra(num) {
+  selectedSierra = num;
+  document.querySelectorAll('.sierra-btn').forEach(el => {
+    el.classList.remove('bg-orange-500', 'text-white');
+    el.classList.add('bg-slate-700', 'text-slate-300');
+  });
+  const el = document.getElementById('sierra-' + num);
+  if (el) { el.classList.remove('bg-slate-700', 'text-slate-300'); el.classList.add('bg-orange-500', 'text-white'); }
+}
+function assignAgentToZone() {
+  if (!currentZoneToAssign || !selectedAgentForZone) {
+    showToast('Sélectionnez un agent');
+    return;
   }
-  
-  showToast(`${agent.name} assigné à ${zone.name}`);
+  const zone = findZone(currentZoneToAssign);
+  const agent = AGENTS.find(a => a.id === selectedAgentForZone);
+  if (!zone || !agent) return;
+  zone.assigned = selectedAgentForZone;
+  agent.zone = currentZoneToAssign;
+  agent.sierra = selectedSierra || null;
+  const sierraText = selectedSierra ? ` (Sierra ${selectedSierra})` : '';
+  showToast(`${agent.name} assigné à ${zone.name}${sierraText}`);
   closeAssignModal();
   renderLevelZones();
   updateStats();
@@ -966,22 +701,18 @@ function renderSupervisorAgents() {
   if (!el) return;
   el.innerHTML = AGENTS.map(agent => {
     const zone = findZone(agent.zone);
+    const sierraText = agent.sierra ? ` · Sierra ${agent.sierra}` : '';
     return `<div class="bg-slate-800 rounded-xl p-3 border border-slate-700 flex items-center gap-3">
       <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold border-2 border-slate-900 ${getStatusColor(agent.status)}">${agent.avatar}</div>
-      <div class="flex-1">
-        <p class="font-medium text-sm">${agent.name}</p>
-        <p class="text-xs text-slate-400">PTI: ${agent.pti} · ${zone ? zone.name : 'Non assigné'}</p>
-      </div>
+      <div class="flex-1"><p class="font-medium text-sm">${agent.name}</p><p class="text-xs text-slate-400">PTI: ${agent.pti} · ${zone ? zone.name : 'Non assigné'}${sierraText}</p></div>
       <span class="text-xs px-2 py-1 rounded-full ${agent.status === 'on_site' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-700 text-slate-400'}">${agent.status === 'on_site' ? 'En poste' : 'Dispo'}</span>
     </div>`;
   }).join('');
 }
-
 function getStatusColor(status) {
   const colors = { on_site: 'bg-emerald-500', briefing: 'bg-amber-500', en_pause: 'bg-blue-500', en_route: 'bg-slate-400' };
   return colors[status] || 'bg-slate-400';
 }
-
 function findZone(zoneId) {
   for (const level of Object.values(ZONES_BY_LEVEL)) {
     const z = level.find(z => z.id === zoneId);
@@ -998,7 +729,6 @@ function setupAgentView() {
   document.getElementById('agent-avatar').textContent = agent.avatar;
   document.getElementById('agent-pti').textContent = 'PTI: ' + agent.pti;
 }
-
 function renderAgentQR() {
   const agent = AGENTS.find(a => a.id === currentAgent);
   if (!agent) return;
@@ -1009,41 +739,31 @@ function renderAgentQR() {
   new QRCode(container, { text: qrData, width: 160, height: 160, colorDark: '#0f172a', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
   renderAgentHistory();
 }
-
 function renderAgentPoste() {
   const agent = AGENTS.find(a => a.id === currentAgent);
   if (!agent) return;
   const zone = findZone(agent.zone);
+  const sierraText = agent.sierra ? `Sierra ${agent.sierra}` : 'Sierra non assigné';
   document.getElementById('agent-poste-name').textContent = zone ? zone.name : 'Non assigné';
-  document.getElementById('agent-poste-level').textContent = zone ? getLevelName(zone.id) + ' · Sierra ' + zone.sierra : 'Attendez le briefing';
+  document.getElementById('agent-poste-level').textContent = zone ? getLevelName(zone.id) + ' — ' + sierraText : 'Attendez le briefing';
   document.getElementById('agent-poste-start').textContent = agent.checkIn || '—';
   document.getElementById('agent-poste-end').textContent = '15:00';
 }
-
 function getLevelName(zoneId) {
   if (zoneId === 'z1' || zoneId === 'z2') return 'Niveau -1';
   if (zoneId === 'z3' || zoneId === 'z4' || zoneId === 'z5' || zoneId === 'z6') return 'RDC';
   return 'Niveau +1';
 }
-
 function renderAgentHistory() {
   const el = document.getElementById('agent-history-list');
   if (!el) return;
   const agentHistory = checkInHistory.filter(h => h.agentId === currentAgent).slice(0, 5);
-  if (agentHistory.length === 0) {
-    el.innerHTML = '<p class="text-xs text-slate-500 text-center">Aucun émargement aujourd\'hui</p>';
-    return;
-  }
+  if (agentHistory.length === 0) { el.innerHTML = '<p class="text-xs text-slate-500 text-center">Aucun émargement aujourd\'hui</p>'; return; }
   el.innerHTML = agentHistory.map(entry => {
     const isCheckIn = entry.type === 'checkin';
-    return `<div class="flex items-center gap-2 text-xs">
-      <span class="${isCheckIn ? 'text-emerald-400' : 'text-rose-400'}">${isCheckIn ? '✓' : '✕'}</span>
-      <span class="text-slate-300">${isCheckIn ? 'Prise de poste' : 'Fin de service'}</span>
-      <span class="text-slate-500">${entry.time}</span>
-    </div>`;
+    return `<div class="flex items-center gap-2 text-xs"><span class="${isCheckIn ? 'text-emerald-400' : 'text-rose-400'}">${isCheckIn ? '✓' : '✕'}</span><span class="text-slate-300">${isCheckIn ? 'Prise de poste' : 'Fin de service'}</span><span class="text-slate-500">${entry.time}</span></div>`;
   }).join('');
 }
-
 function agentCheckIn() {
   const agent = AGENTS.find(a => a.id === currentAgent);
   if (!agent) return;
@@ -1055,7 +775,6 @@ function agentCheckIn() {
   showToast(`Prise de poste : ${timeStr}`);
   renderAgentHistory();
 }
-
 function agentCheckOut() {
   const agent = AGENTS.find(a => a.id === currentAgent);
   if (!agent) return;
@@ -1075,23 +794,12 @@ function renderAgentBriefings() {
   el.innerHTML = BRIEFINGS.map(b => {
     const isSigned = b.signed >= b.total;
     return `<div class="bg-slate-800 rounded-2xl p-4 border border-slate-700">
-      <div class="flex items-center justify-between mb-2">
-        <div class="flex items-center gap-2">
-          <div class="w-8 h-8 rounded-lg ${b.type === 'urgent' ? 'bg-orange-500/20' : 'bg-blue-500/20'} flex items-center justify-center">
-            <svg class="w-4 h-4 ${b.type === 'urgent' ? 'text-orange-500' : 'text-blue-500'}" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-          </div>
-          <p class="font-semibold text-sm">${b.title}</p>
-        </div>
-        <span class="text-xs ${isSigned ? 'text-emerald-400' : 'text-amber-400'}">${isSigned ? '✓ Validé' : '⏳ À signer'}</span>
-      </div>
+      <div class="flex items-center justify-between mb-2"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg ${b.type === 'urgent' ? 'bg-orange-500/20' : 'bg-blue-500/20'} flex items-center justify-center"><svg class="w-4 h-4 ${b.type === 'urgent' ? 'text-orange-500' : 'text-blue-500'}" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div><p class="font-semibold text-sm">${b.title}</p></div><span class="text-xs ${isSigned ? 'text-emerald-400' : 'text-amber-400'}">${isSigned ? '✓ Validé' : '⏳ À signer'}</span></div>
       <p class="text-xs text-slate-400 mb-3">${b.desc}</p>
-      ${!isSigned ? `<button onclick="openSignBriefing(${b.id})" class="w-full py-2 bg-orange-500/20 text-orange-400 rounded-xl text-sm font-medium transition-all hover:bg-orange-500/30">
-        Signer électroniquement
-      </button>` : ''}
+      ${!isSigned ? `<button onclick="openSignBriefing(${b.id})" class="w-full py-2 bg-orange-500/20 text-orange-400 rounded-xl text-sm font-medium transition-all hover:bg-orange-500/30">Signer électroniquement</button>` : ''}
     </div>`;
   }).join('');
 }
-
 function openSignBriefing(briefingId) {
   const briefing = BRIEFINGS.find(b => b.id === briefingId);
   if (!briefing) return;
@@ -1100,12 +808,7 @@ function openSignBriefing(briefingId) {
   document.getElementById('sign-briefing-modal').classList.remove('hidden');
   setupSignaturePad();
 }
-
-function closeSignBriefingModal() {
-  document.getElementById('sign-briefing-modal').classList.add('hidden');
-  currentBriefingToSign = null;
-}
-
+function closeSignBriefingModal() { document.getElementById('sign-briefing-modal').classList.add('hidden'); currentBriefingToSign = null; }
 function setupSignaturePad() {
   const canvas = document.getElementById('signature-pad');
   if (!canvas) return;
@@ -1116,23 +819,10 @@ function setupSignaturePad() {
   ctx.strokeStyle = '#f97316';
   ctx.lineWidth = 2;
   ctx.lineCap = 'round';
-  
   let drawing = false;
-  
-  const startDraw = (e) => {
-    drawing = true;
-    const pos = getPos(e, canvas);
-    ctx.beginPath();
-    ctx.moveTo(pos.x, pos.y);
-  };
-  const draw = (e) => {
-    if (!drawing) return;
-    const pos = getPos(e, canvas);
-    ctx.lineTo(pos.x, pos.y);
-    ctx.stroke();
-  };
+  const startDraw = (e) => { drawing = true; const pos = getPos(e, canvas); ctx.beginPath(); ctx.moveTo(pos.x, pos.y); };
+  const draw = (e) => { if (!drawing) return; const pos = getPos(e, canvas); ctx.lineTo(pos.x, pos.y); ctx.stroke(); };
   const stopDraw = () => { drawing = false; ctx.beginPath(); };
-  
   canvas.addEventListener('mousedown', startDraw);
   canvas.addEventListener('mousemove', draw);
   canvas.addEventListener('mouseup', stopDraw);
@@ -1140,43 +830,25 @@ function setupSignaturePad() {
   canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e); });
   canvas.addEventListener('touchend', stopDraw);
 }
-
 function getPos(e, canvas) {
   const rect = canvas.getBoundingClientRect();
   const clientX = e.touches ? e.touches[0].clientX : e.clientX;
   const clientY = e.touches ? e.touches[0].clientY : e.clientY;
   return { x: clientX - rect.left, y: clientY - rect.top };
 }
-
-function clearSignature() {
-  const canvas = document.getElementById('signature-pad');
-  if (canvas) {
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  }
-}
-
+function clearSignature() { const canvas = document.getElementById('signature-pad'); if (canvas) { const ctx = canvas.getContext('2d'); ctx.clearRect(0, 0, canvas.width, canvas.height); } }
 function confirmSignature() {
   if (currentBriefingToSign) {
     const briefing = BRIEFINGS.find(b => b.id === currentBriefingToSign);
-    if (briefing) {
-      briefing.signed = Math.min(briefing.signed + 1, briefing.total);
-      showToast(`Briefing "${briefing.title}" validé ✓`);
-    }
+    if (briefing) { briefing.signed = Math.min(briefing.signed + 1, briefing.total); showToast(`Briefing "${briefing.title}" validé ✓`); }
   }
   closeSignBriefingModal();
   renderAgentBriefings();
 }
 
 // ================== SUPERVISOR BRIEFING MODAL ==================
-function showNewBriefingModal() {
-  document.getElementById('new-briefing-modal').classList.remove('hidden');
-}
-
-function closeNewBriefingModal() {
-  document.getElementById('new-briefing-modal').classList.add('hidden');
-}
-
+function showNewBriefingModal() { document.getElementById('new-briefing-modal').classList.remove('hidden'); }
+function closeNewBriefingModal() { document.getElementById('new-briefing-modal').classList.add('hidden'); }
 function createBriefing() {
   const title = document.getElementById('briefing-title').value;
   const desc = document.getElementById('briefing-desc').value;
@@ -1189,41 +861,22 @@ function createBriefing() {
 }
 
 // ================== PLANNING UPLOAD ==================
-function showPlanningUpload() {
-  document.getElementById('planning-upload-modal').classList.remove('hidden');
-  setupDropZone();
-}
-
-function closePlanningUpload() {
-  document.getElementById('planning-upload-modal').classList.add('hidden');
-  document.getElementById('uploaded-file-info').classList.add('hidden');
-}
-
+function showPlanningUpload() { document.getElementById('planning-upload-modal').classList.remove('hidden'); setupDropZone(); }
+function closePlanningUpload() { document.getElementById('planning-upload-modal').classList.add('hidden'); document.getElementById('uploaded-file-info').classList.add('hidden'); }
 function setupDropZone() {
   const dropZone = document.getElementById('drop-zone');
   if (!dropZone) return;
-  
   dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
   dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-  dropZone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    dropZone.classList.remove('dragover');
-    const files = e.dataTransfer.files;
-    if (files.length > 0) handleFileUpload({ files: [files[0]] });
-  });
+  dropZone.addEventListener('drop', (e) => { e.preventDefault(); dropZone.classList.remove('dragover'); const files = e.dataTransfer.files; if (files.length > 0) handleFileUpload({ files: [files[0]] }); });
 }
-
 function handleFileUpload(input) {
   const file = input.files ? input.files[0] : null;
   if (!file) return;
   document.getElementById('uploaded-file-name').textContent = file.name;
   document.getElementById('uploaded-file-info').classList.remove('hidden');
 }
-
-function syncPlanning() {
-  showToast('Planning synchronisé ✓');
-  closePlanningUpload();
-}
+function syncPlanning() { showToast('Planning synchronisé ✓'); closePlanningUpload(); }
 
 // ================== SUPERVISOR QUIZZ ==================
 function showSendQuizzModal() {
@@ -1231,33 +884,21 @@ function showSendQuizzModal() {
   document.getElementById('send-quizz-agent-list').innerHTML = AGENTS.map(agent => {
     return `<div class="flex items-center gap-3 p-2 rounded-xl bg-slate-700/50">
       <div class="w-8 h-8 rounded-full ${getStatusColor(agent.status)} flex items-center justify-center text-xs font-bold">${agent.avatar}</div>
-      <div class="flex-1">
-        <p class="font-medium text-sm">${agent.name}</p>
-        <p class="text-xs text-slate-400">PTI: ${agent.pti}</p>
-      </div>
+      <div class="flex-1"><p class="font-medium text-sm">${agent.name}</p><p class="text-xs text-slate-400">PTI: ${agent.pti}</p></div>
       <input type="checkbox" id="send-quizz-${agent.id}" class="w-5 h-5 rounded border-slate-600 text-orange-500 focus:ring-orange-500" checked>
     </div>`;
   }).join('');
 }
-
-function closeSendQuizzModal() {
-  document.getElementById('send-quizz-modal').classList.add('hidden');
-}
-
+function closeSendQuizzModal() { document.getElementById('send-quizz-modal').classList.add('hidden'); }
 function sendQuizzToAgents() {
   const selected = AGENTS.filter(a => document.getElementById(`send-quizz-${a.id}`).checked);
   showToast(`Quizz envoyé à ${selected.length} agent(s) ✓`);
   closeSendQuizzModal();
 }
-
 function programQuizz() {
   const title = document.getElementById('quizz-title').value;
   const date = document.getElementById('quizz-date').value;
-  const count = document.getElementById('quizz-count').value;
-  if (!title || !date) {
-    showToast('Veuillez remplir tous les champs');
-    return;
-  }
+  if (!title || !date) { showToast('Veuillez remplir tous les champs'); return; }
   showToast(`Quizz "${title}" programmé le ${date} ✓`);
   document.getElementById('quizz-title').value = '';
   document.getElementById('quizz-date').value = '';
@@ -1269,49 +910,24 @@ function startAgentQuiz() {
   quizScore = 0;
   renderAgentQuizQuestion();
 }
-
 function renderAgentQuizQuestion() {
   const container = document.getElementById('agent-quiz-container');
   if (!container) return;
   if (currentQuizQuestion >= QUIZ_QUESTIONS.length) {
     const badge = quizScore >= 12 ? 'Or' : quizScore >= 8 ? 'Argent' : 'Bronze';
     const color = quizScore >= 12 ? 'text-yellow-400' : quizScore >= 8 ? 'text-slate-300' : 'text-amber-600';
-    
-    // Save result
     const result = { id: Date.now(), agentId: currentAgent, score: quizScore, total: QUIZ_QUESTIONS.length, badge, date: new Date().toISOString() };
     quizResults.unshift(result);
     localStorage.setItem('safepass_quiz_results', JSON.stringify(quizResults));
-    
-    container.innerHTML = `
-      <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700 text-center">
-        <p class="font-bold text-xl mb-2">${quizScore}/${QUIZ_QUESTIONS.length}</p>
-        <p class="text-sm text-slate-400 mb-2">Badge obtenu</p>
-        <p class="text-2xl font-bold ${color} mb-4">${badge}</p>
-        <button onclick="startAgentQuiz()" class="px-6 py-3 bg-violet-500 hover:bg-violet-400 text-white rounded-xl font-semibold transition-all">Recommencer</button>
-      </div>
-    `;
+    container.innerHTML = `<div class="bg-slate-800 rounded-2xl p-6 border border-slate-700 text-center"><p class="font-bold text-xl mb-2">${quizScore}/${QUIZ_QUESTIONS.length}</p><p class="text-sm text-slate-400 mb-2">Badge obtenu</p><p class="text-2xl font-bold ${color} mb-4">${badge}</p><button onclick="startAgentQuiz()" class="px-6 py-3 bg-violet-500 hover:bg-violet-400 text-white rounded-xl font-semibold transition-all">Recommencer</button></div>`;
     return;
   }
-  
   const q = QUIZ_QUESTIONS[currentQuizQuestion];
-  container.innerHTML = `
-    <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700">
-      <div class="flex items-center justify-between mb-4">
-        <span class="text-xs text-slate-400">Question ${currentQuizQuestion + 1}/${QUIZ_QUESTIONS.length}</span>
-        <span class="text-xs text-violet-400">Score: ${quizScore}</span>
-      </div>
-      <p class="font-semibold mb-4">${q.q}</p>
-      <div class="space-y-2">
-        ${q.options.map((opt, i) => `
-          <button onclick="answerAgentQuiz(${i})" class="w-full text-left p-3 rounded-xl bg-slate-700/50 border border-slate-700 hover:bg-violet-500/20 hover:border-violet-500/50 transition-all text-sm">
-            ${opt}
-          </button>
-        `).join('')}
-      </div>
-    </div>
-  `;
+  container.innerHTML = `<div class="bg-slate-800 rounded-2xl p-6 border border-slate-700">
+    <div class="flex items-center justify-between mb-4"><span class="text-xs text-slate-400">Question ${currentQuizQuestion + 1}/${QUIZ_QUESTIONS.length}</span><span class="text-xs text-violet-400">Score: ${quizScore}</span></div>
+    <p class="font-semibold mb-4">${q.q}</p><div class="space-y-2">${q.options.map((opt, i) => `<button onclick="answerAgentQuiz(${i})" class="w-full text-left p-3 rounded-xl bg-slate-700/50 border border-slate-700 hover:bg-violet-500/20 hover:border-violet-500/50 transition-all text-sm">${opt}</button>`).join('')}</div>
+  </div>`;
 }
-
 function answerAgentQuiz(answer) {
   const q = QUIZ_QUESTIONS[currentQuizQuestion];
   if (answer === q.correct) quizScore++;
@@ -1328,10 +944,7 @@ function showToast(msg) {
 }
 
 // ================== INIT ==================
-function init() {
-  updateStats();
-}
-
+function init() { updateStats(); }
 init();
 </script>
 </body>
