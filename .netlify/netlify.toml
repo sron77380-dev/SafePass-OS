@@ -9,7 +9,6 @@ redirects = []
 [build]
 publish = "/root/.openclaw/workspace/safepass-os-deploy"
 publishOrigin = "default"
-base = "/root/.openclaw/workspace/safepass-os-deploy"
 
 [build.environment]
 
