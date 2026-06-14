@@ -147,66 +147,9 @@ body { font-family: 'Inter', sans-serif; background: #0f172a; }
     <button onclick="switchLevel('rdc')" id="tab-rdc" class="flex-1 py-2 rounded-lg text-sm font-medium transition-all text-slate-400 hover:text-slate-200">RDC</button>
     <button onclick="switchLevel('n1')" id="tab-n1" class="flex-1 py-2 rounded-lg text-sm font-medium transition-all text-slate-400 hover:text-slate-200">Niveau +1</button>
   </div>
-  <div id="level-n-1" class="space-y-3">
-    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-orange-400"></div><div><p class="font-semibold">Quai de livraison</p><p class="text-xs text-slate-400">1 agent</p></div></div>
-        <button onclick="showAssignModal('z1')" class="px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/30 transition-all">Assigner</button>
-      </div>
-    </div>
-    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-violet-400"></div><div><p class="font-semibold">R-1 (Réserves)</p><p class="text-xs text-slate-400">4 agents</p></div></div>
-        <button onclick="showAssignModal('z2')" class="px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/30 transition-all">Assigner</button>
-      </div>
-    </div>
-  </div>
-  <div id="level-rdc" class="hidden space-y-3">
-    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-amber-400"></div><div><p class="font-semibold">Entrée Principale</p><p class="text-xs text-slate-400">1 agent</p></div></div>
-        <button onclick="showAssignModal('z3')" class="px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/30 transition-all">Assigner</button>
-      </div>
-    </div>
-    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-amber-400"></div><div><p class="font-semibold">Entrée Personnelle</p><p class="text-xs text-slate-400">1 agent</p></div></div>
-        <button onclick="showAssignModal('z4')" class="px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/30 transition-all">Assigner</button>
-      </div>
-    </div>
-    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-amber-400"></div><div><p class="font-semibold">Hall Accueil</p><p class="text-xs text-slate-400">4 agents</p></div></div>
-        <button onclick="showAssignModal('z5')" class="px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/30 transition-all">Assigner</button>
-      </div>
-    </div>
-    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-amber-400"></div><div><p class="font-semibold">Accueil Groupes</p><p class="text-xs text-slate-400">1 agent</p></div></div>
-        <button onclick="showAssignModal('z6')" class="px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/30 transition-all">Assigner</button>
-      </div>
-    </div>
-  </div>
-  <div id="level-n1" class="hidden space-y-3">
-    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-sky-400"></div><div><p class="font-semibold">Parking</p><p class="text-xs text-slate-400">1 agent</p></div></div>
-        <button onclick="showAssignModal('z7')" class="px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/30 transition-all">Assigner</button>
-      </div>
-    </div>
-    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-rose-400"></div><div><p class="font-semibold">Coulisses Événement</p><p class="text-xs text-slate-400">4 agents</p></div></div>
-        <button onclick="showAssignModal('z8')" class="px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/30 transition-all">Assigner</button>
-      </div>
-    </div>
-    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-violet-400"></div><div><p class="font-semibold">Surveillance Nuit</p><p class="text-xs text-slate-400">4 agents (18h-08h)</p></div></div>
-        <button onclick="showAssignModal('z9')" class="px-3 py-1.5 rounded-lg bg-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/30 transition-all">Assigner</button>
-      </div>
-    </div>
-  </div>
+  <div id="level-n-1" class="space-y-3"></div>
+  <div id="level-rdc" class="hidden space-y-3"></div>
+  <div id="level-n1" class="hidden space-y-3"></div>
 </div>
 
 <!-- SUPERVISOR BRIEFING -->
@@ -627,7 +570,34 @@ function switchLevel(level) {
     if (tab) tab.className = 'flex-1 py-2 rounded-lg text-sm font-medium transition-all ' + (l === level ? 'bg-orange-500 text-white' : 'text-slate-400 hover:text-slate-200');
   });
 }
-function renderLevelZones() { switchLevel(currentLevel); }
+function renderLevelZones() {
+  const levelMap = { 'n-1': 'level-n-1', 'rdc': 'level-rdc', 'n1': 'level-n1' };
+  for (const [levelKey, levelId] of Object.entries(levelMap)) {
+    const container = document.getElementById(levelId);
+    if (!container) continue;
+    const zones = ZONES_BY_LEVEL[levelKey] || [];
+    container.innerHTML = zones.map(zone => {
+      const agent = zone.assigned ? AGENTS.find(a => a.id === zone.assigned) : null;
+      const isAssigned = !!agent;
+      const agentText = isAssigned ? `<p class="text-xs text-emerald-400 mt-1">✓ ${agent.name}${agent.sierra ? ' · Sierra ' + agent.sierra : ''}</p>` : `<p class="text-xs text-slate-400">${zone.agents} agent${zone.agents > 1 ? 's' : ''}</p>`;
+      const btnClass = isAssigned ? 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30' : 'bg-orange-500/20 text-orange-400 hover:bg-orange-500/30';
+      const btnText = isAssigned ? 'Validé ✓' : 'Assigner';
+      return `<div class="bg-slate-800 rounded-xl p-4 border border-slate-700">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-3 h-3 rounded-full ${zone.color}"></div>
+            <div>
+              <p class="font-semibold">${zone.name}</p>
+              ${agentText}
+            </div>
+          </div>
+          <button onclick="showAssignModal('${zone.id}')" class="px-3 py-1.5 rounded-lg ${btnClass} text-xs font-medium transition-all">${btnText}</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  switchLevel(currentLevel);
+}
 
 // ================== ASSIGN AGENT ==================
 function showAssignModal(zoneId) {
