@@ -537,7 +537,7 @@ function switchView(view) {
       if (el) el.className = 'flex flex-col items-center gap-1 px-3 py-1 rounded-lg transition-all ' + (id === view ? 'text-orange-500' : 'text-slate-400 hover:text-slate-200');
     });
   }
-  if (view === 'supervisor-zones') renderLevelZones();
+  if (view === 'supervisor-zones') { renderLevelZones(); switchLevel(currentLevel); }
   if (view === 'supervisor-agents') renderSupervisorAgents();
   if (view === 'agent-scan') renderAgentQR();
   if (view === 'agent-poste') renderAgentPoste();
@@ -596,7 +596,7 @@ function renderLevelZones() {
       </div>`;
     }).join('');
   }
-  switchLevel(currentLevel);
+  // Ne pas appeler switchLevel ici — on garde le niveau actuel
 }
 
 // ================== ASSIGN AGENT ==================
