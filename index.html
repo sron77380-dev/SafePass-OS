@@ -3,8 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Safe Pass V2</title>
+<meta name="theme-color" content="#020617">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Safe Pass OS</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 body { font-family: 'Inter', sans-serif; background: #020617; }
@@ -21,6 +25,10 @@ body { font-family: 'Inter', sans-serif; background: #020617; }
 .toast-anim { animation: toastIn 0.3s ease-out, toastOut 0.3s ease-in 2.2s forwards; }
 @keyframes toastIn { from { transform: translateX(-50%) translateY(20px); opacity: 0; } to { transform: translateX(-50%) translateY(0); opacity: 1; } }
 @keyframes toastOut { from { transform: translateX(-50%) translateY(0); opacity: 1; } to { transform: translateX(-50%) translateY(20px); opacity: 0; } }
+.scan-laser { animation: laserScan 2s ease-in-out infinite; }
+@keyframes laserScan { 0%,100% { top: 0; } 50% { top: 100%; } }
+.fade-in { animation: fadeIn 0.3s ease-out; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen">
@@ -34,7 +42,7 @@ body { font-family: 'Inter', sans-serif; background: #020617; }
       </div>
       <div>
         <h1 class="font-bold text-lg tracking-tight">Safe Pass</h1>
-        <p class="text-xs text-slate-400">V2 — Gestion des Postes</p>
+        <p class="text-xs text-slate-400">OS V2.1 — QR Émargement</p>
       </div>
     </div>
     <div class="text-right">
@@ -108,6 +116,21 @@ body { font-family: 'Inter', sans-serif; background: #020617; }
     <div id="timeline" class="flex gap-2 overflow-x-auto hide-scrollbar pb-2"></div>
   </div>
 
+  <!-- QR CODES SECTION -->
+  <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-4">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="font-semibold flex items-center gap-2 text-sm">
+        <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+        QR Codes — Émargement
+      </h3>
+      <button onclick="showAllQR()" class="text-xs px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/30 transition-all">
+        Voir tous les QR
+      </button>
+    </div>
+    <p class="text-xs text-slate-400 mb-3">Scannez le QR code à la prise de poste et à la fin de service</p>
+    <div id="qr-list" class="grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
+  </div>
+
   <!-- PLAN + AGENTS -->
   <div class="grid gap-4">
     <!-- PLAN -->
@@ -151,11 +174,12 @@ body { font-family: 'Inter', sans-serif; background: #020617; }
 <!-- AGENT VIEW -->
 <div id="view-agent" class="hidden max-w-md mx-auto px-4 py-6 space-y-6">
   <div class="text-center space-y-2">
-    <div class="w-20 h-20 mx-auto bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-700">
-      <svg class="w-10 h-10 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M8 12h8M12 8v8"></path></svg>
+    <div class="w-20 h-20 mx-auto bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-700 relative overflow-hidden">
+      <div class="absolute inset-0 bg-sky-500/10 scan-laser"></div>
+      <svg class="w-10 h-10 text-sky-400 relative z-10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M8 12h8M12 8v8"></path></svg>
     </div>
     <h2 class="text-xl font-bold">Scanner Safe Pass</h2>
-    <p class="text-sm text-slate-400">Scannez votre QR pour voir votre poste assigné</p>
+    <p class="text-sm text-slate-400">Scannez votre QR pour émarger</p>
   </div>
 
   <button onclick="simulateScan()" class="w-full py-4 bg-sky-500 hover:bg-sky-400 text-white rounded-2xl font-semibold text-lg shadow-lg shadow-sky-500/20 transition-all active:scale-95">
@@ -167,6 +191,23 @@ body { font-family: 'Inter', sans-serif; background: #020617; }
 
   <div id="agent-card" class="bg-slate-900/50 border border-slate-800 rounded-2xl p-4">
     <p class="text-slate-500 text-sm text-center py-4">Scannez votre QR pour afficher vos informations</p>
+  </div>
+
+  <!-- CHECK-IN HISTORY -->
+  <div id="history-section" class="hidden bg-slate-900/50 border border-slate-800 rounded-2xl p-4">
+    <h3 class="font-semibold mb-3 flex items-center gap-2 text-sm">
+      <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      Historique d'émargement
+    </h3>
+    <div id="history-list" class="space-y-2 max-h-[200px] overflow-y-auto hide-scrollbar"></div>
+  </div>
+</div>
+
+<!-- QR MODAL -->
+<div id="qr-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-sm w-full text-center space-y-4 slide-up">
+    <div id="qr-modal-content"></div>
+    <button onclick="closeQRModal()" class="w-full py-3 bg-slate-800 hover:bg-slate-700 rounded-xl font-medium transition-all">Fermer</button>
   </div>
 </div>
 
@@ -205,7 +246,7 @@ const STATUS_LABELS = {
   en_route: 'En route',
 };
 
-let agents = [
+let agents = JSON.parse(localStorage.getItem('safepass_agents')) || [
   { id: 'a1', name: 'Martin D.', status: 'on_site', zone: 'z1', checkIn: '07:00', lastSeen: '2 min', avatar: 'MD' },
   { id: 'a2', name: 'Sophie L.', status: 'on_site', zone: 'z2', checkIn: '07:00', lastSeen: '1 min', avatar: 'SL' },
   { id: 'a3', name: 'Karim B.', status: 'briefing', zone: null, checkIn: '08:00', lastSeen: '5 min', avatar: 'KB' },
@@ -230,6 +271,8 @@ const SHIFTS = [
 let selectedZone = null;
 let assignMode = false;
 let selectedAgent = null;
+let currentScanAgent = null;
+let checkInHistory = JSON.parse(localStorage.getItem('safepass_history')) || [];
 
 // ================== CLOCK ==================
 function updateClock() {
@@ -270,6 +313,95 @@ function renderTimeline() {
       <div class="flex -space-x-2">${avatars}</div>
     </div>`;
   }).join('');
+}
+
+// ================== QR CODES ==================
+function renderQRList() {
+  const el = document.getElementById('qr-list');
+  el.innerHTML = agents.map(agent => {
+    const zone = ZONES.find(z => z.id === agent.zone);
+    return `<button onclick="showQR('${agent.id}')" class="bg-slate-800/50 border border-slate-700 rounded-xl p-3 text-center hover:bg-slate-800 transition-all">
+      <div class="w-10 h-10 mx-auto rounded-full flex items-center justify-center text-sm font-bold border-2 border-slate-900 ${STATUS_COLORS[agent.status]}">${agent.avatar}</div>
+      <p class="text-xs font-medium mt-2 text-slate-200">${agent.name}</p>
+      <p class="text-[10px] text-slate-400">${zone ? zone.name : 'Non assigné'}</p>
+    </button>`;
+  }).join('');
+}
+
+function showQR(agentId) {
+  const agent = agents.find(a => a.id === agentId);
+  const zone = ZONES.find(z => z.id === agent.zone);
+  const modal = document.getElementById('qr-modal');
+  const content = document.getElementById('qr-modal-content');
+  
+  const qrData = JSON.stringify({
+    agent: agent.id,
+    name: agent.name,
+    zone: agent.zone,
+    timestamp: new Date().toISOString()
+  });
+  
+  content.innerHTML = `
+    <div class="w-16 h-16 mx-auto rounded-full flex items-center justify-center text-xl font-bold border-4 border-slate-900 ${STATUS_COLORS[agent.status]}">${agent.avatar}</div>
+    <div>
+      <p class="text-xl font-bold">${agent.name}</p>
+      <p class="text-sm text-slate-400">${zone ? zone.name : 'Non assigné'}</p>
+    </div>
+    <div id="qr-code-container" class="bg-white p-4 rounded-xl mx-auto inline-block"></div>
+    <p class="text-xs text-slate-400">Scannez ce QR pour émarger</p>
+  `;
+  
+  modal.classList.remove('hidden');
+  
+  setTimeout(() => {
+    const container = document.getElementById('qr-code-container');
+    if (container) {
+      container.innerHTML = '';
+      new QRCode(container, {
+        text: qrData,
+        width: 160,
+        height: 160,
+        colorDark: '#0f172a',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    }
+  }, 100);
+}
+
+function showAllQR() {
+  const modal = document.getElementById('qr-modal');
+  const content = document.getElementById('qr-modal-content');
+  
+  content.innerHTML = `
+    <p class="text-lg font-bold">Tous les QR Codes</p>
+    <p class="text-xs text-slate-400">Scannez pour émarger</p>
+    <div class="grid grid-cols-2 gap-3 max-h-[400px] overflow-y-auto hide-scrollbar py-2">
+      ${agents.map(agent => `
+        <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-2 text-center">
+          <div class="w-8 h-8 mx-auto rounded-full flex items-center justify-center text-xs font-bold border-2 border-slate-900 ${STATUS_COLORS[agent.status]}">${agent.avatar}</div>
+          <p class="text-xs font-medium mt-1">${agent.name}</p>
+          <div id="qr-all-${agent.id}" class="bg-white p-1 rounded-lg mt-1 mx-auto inline-block"></div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  
+  modal.classList.remove('hidden');
+  
+  setTimeout(() => {
+    agents.forEach(agent => {
+      const container = document.getElementById(`qr-all-${agent.id}`);
+      if (container) {
+        const qrData = JSON.stringify({ agent: agent.id, name: agent.name, timestamp: new Date().toISOString() });
+        new QRCode(container, { text: qrData, width: 80, height: 80, colorDark: '#0f172a', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+      }
+    });
+  }, 100);
+}
+
+function closeQRModal() {
+  document.getElementById('qr-modal').classList.add('hidden');
 }
 
 // ================== ZONES ==================
@@ -341,9 +473,11 @@ function assignAgent(agentId) {
   document.getElementById('assign-panel').classList.add('hidden');
   renderZones();
   renderAgents();
+  renderQRList();
   updateStats();
   renderTimeline();
   showToast(`${agent.name} assigné à ${zone.name}`);
+  saveAgents();
 }
 
 // ================== AGENTS LIST ==================
@@ -384,6 +518,14 @@ function simulateScan() {
   const zone = ZONES.find(z => z.id === random.zone);
   const modal = document.getElementById('scan-modal');
   const content = document.getElementById('scan-content');
+  currentScanAgent = random;
+  
+  const qrData = JSON.stringify({
+    agent: random.id,
+    name: random.name,
+    zone: random.zone,
+    timestamp: new Date().toISOString()
+  });
   
   content.innerHTML = `
     <div class="w-16 h-16 mx-auto rounded-full flex items-center justify-center text-xl font-bold border-4 border-slate-900 ${STATUS_COLORS[random.status]}">${random.avatar}</div>
@@ -401,9 +543,34 @@ function simulateScan() {
         <p class="text-xs text-slate-400 mt-1">Contactez votre superviseur</p>
       </div>`
     }
+    <div class="bg-white p-3 rounded-xl mx-auto inline-block">
+      <div id="agent-qr-display"></div>
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+      <button onclick="checkIn()" class="py-3 bg-emerald-500 hover:bg-emerald-400 text-white rounded-xl font-medium transition-all">
+        <span class="flex items-center justify-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
+          Prise de poste
+        </span>
+      </button>
+      <button onclick="checkOut()" class="py-3 bg-rose-500 hover:bg-rose-400 text-white rounded-xl font-medium transition-all">
+        <span class="flex items-center justify-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+          Fin de service
+        </span>
+      </button>
+    </div>
     <button onclick="closeScan()" class="w-full py-3 bg-slate-800 hover:bg-slate-700 rounded-xl font-medium transition-all">Fermer</button>
   `;
+  
   modal.classList.remove('hidden');
+  
+  setTimeout(() => {
+    const container = document.getElementById('agent-qr-display');
+    if (container) {
+      new QRCode(container, { text: qrData, width: 120, height: 120, colorDark: '#0f172a', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+    }
+  }, 100);
   
   // Update agent card
   const card = document.getElementById('agent-card');
@@ -434,8 +601,71 @@ function simulateScan() {
   `;
 }
 
+function checkIn() {
+  if (!currentScanAgent) return;
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
+  const entry = {
+    id: Date.now(),
+    agentId: currentScanAgent.id,
+    agentName: currentScanAgent.name,
+    type: 'checkin',
+    time: timeStr,
+    timestamp: now.toISOString(),
+    zone: currentScanAgent.zone
+  };
+  checkInHistory.unshift(entry);
+  localStorage.setItem('safepass_history', JSON.stringify(checkInHistory));
+  showToast(`${currentScanAgent.name} — Prise de poste : ${timeStr}`);
+  renderHistory();
+  document.getElementById('history-section').classList.remove('hidden');
+}
+
+function checkOut() {
+  if (!currentScanAgent) return;
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
+  const entry = {
+    id: Date.now(),
+    agentId: currentScanAgent.id,
+    agentName: currentScanAgent.name,
+    type: 'checkout',
+    time: timeStr,
+    timestamp: now.toISOString(),
+    zone: currentScanAgent.zone
+  };
+  checkInHistory.unshift(entry);
+  localStorage.setItem('safepass_history', JSON.stringify(checkInHistory));
+  showToast(`${currentScanAgent.name} — Fin de service : ${timeStr}`);
+  renderHistory();
+  document.getElementById('history-section').classList.remove('hidden');
+}
+
+function renderHistory() {
+  const el = document.getElementById('history-list');
+  const recent = checkInHistory.slice(0, 20);
+  if (recent.length === 0) {
+    document.getElementById('history-section').classList.add('hidden');
+    return;
+  }
+  document.getElementById('history-section').classList.remove('hidden');
+  el.innerHTML = recent.map(entry => {
+    const isCheckIn = entry.type === 'checkin';
+    return `<div class="flex items-center gap-3 p-2 rounded-lg ${isCheckIn ? 'bg-emerald-500/10 border border-emerald-500/20' : 'bg-rose-500/10 border border-rose-500/20'}">
+      <div class="w-8 h-8 rounded-full flex items-center justify-center ${isCheckIn ? 'bg-emerald-500' : 'bg-rose-500'}">
+        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">${isCheckIn ? '<path d="M5 13l4 4L19 7"></path>' : '<path d="M18 6L6 18M6 6l12 12"></path>'}</svg>
+      </div>
+      <div class="flex-1">
+        <p class="text-xs font-medium">${entry.agentName}</p>
+        <p class="text-[10px] text-slate-400">${isCheckIn ? 'Prise de poste' : 'Fin de service'} · ${entry.time}</p>
+      </div>
+    </div>`;
+  }).join('');
+}
+
 function closeScan() {
   document.getElementById('scan-modal').classList.add('hidden');
+  currentScanAgent = null;
 }
 
 // ================== TOAST ==================
@@ -446,12 +676,19 @@ function showToast(msg) {
   setTimeout(() => t.classList.add('hidden'), 2500);
 }
 
+// ================== SAVE ==================
+function saveAgents() {
+  localStorage.setItem('safepass_agents', JSON.stringify(agents));
+}
+
 // ================== INIT ==================
 function init() {
   updateStats();
   renderTimeline();
   renderZones();
   renderAgents();
+  renderQRList();
+  renderHistory();
 }
 
 init();
