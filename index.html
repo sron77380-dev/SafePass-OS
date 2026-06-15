@@ -199,7 +199,7 @@ body { font-family: 'Inter', sans-serif; background: #0f172a; }
     <h3 class="font-semibold mb-3">Programmer un quizz</h3>
     <div class="space-y-3">
       <div><p class="text-xs text-slate-400 mb-1">Titre</p><input id="quizz-title" type="text" placeholder="Ex: Quizz sécurité mensuel" class="w-full bg-slate-700 rounded-xl px-4 py-2 text-sm text-white placeholder-slate-500 border border-slate-600 focus:outline-none focus:border-orange-500"></div>
-      <div><p class="text-xs text-slate-400 mb-1">Date</p><input id="quizz-date" type="date" class="w-full bg-slate-700 rounded-xl px-4 py-2 text-sm text-white border border-slate-600 focus:outline-none focus:border-orange-500"></div>
+      <div><p class="text-xs text-slate-400 mb-1">Date</p><input id="quizz-date" type="date" class="w-full bg-slate-700 rounded-xl px-4 py-3 text-sm text-white border border-slate-600 focus:outline-none focus:border-orange-500 min-h-[44px]"></div>
       <div><p class="text-xs text-slate-400 mb-1">Questions</p><select id="quizz-count" class="w-full bg-slate-700 rounded-xl px-4 py-2 text-sm text-white border border-slate-600 focus:outline-none focus:border-orange-500"><option value="15">15 questions</option><option value="10">10 questions</option><option value="5">5 questions</option></select></div>
       <button onclick="programQuizz()" class="w-full py-3 bg-orange-500 hover:bg-orange-400 text-white rounded-xl font-semibold transition-all">Programmer</button>
     </div>
@@ -254,6 +254,10 @@ body { font-family: 'Inter', sans-serif; background: #0f172a; }
     <h2 class="text-xl font-bold">Mon QR SafePass</h2><p class="text-sm text-slate-400">Scannez pour émarger</p>
   </div>
   <div id="agent-qr-card" class="bg-white p-6 rounded-2xl mx-auto inline-block"><div id="agent-qr-display"></div></div>
+  <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700">
+    <p class="text-xs text-slate-400 mb-2">Votre PTI</p>
+    <input id="agent-pti-input" type="text" placeholder="Entrez votre n° PTI" class="w-full bg-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 border border-slate-600 focus:outline-none focus:border-orange-500 text-center font-mono">
+  </div>
   <div class="grid grid-cols-2 gap-3">
     <button onclick="agentCheckIn()" class="py-3 bg-emerald-500 hover:bg-emerald-400 text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>Prise de poste</button>
     <button onclick="agentCheckOut()" class="py-3 bg-rose-500 hover:bg-rose-400 text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"></path></svg>Fin de service</button>
@@ -261,6 +265,19 @@ body { font-family: 'Inter', sans-serif; background: #0f172a; }
   <div id="agent-history" class="bg-slate-800 rounded-2xl p-4 border border-slate-700">
     <h3 class="font-semibold mb-3 text-sm">Historique aujourd'hui</h3>
     <div id="agent-history-list" class="space-y-2"></div>
+  </div>
+  <div class="bg-slate-800 rounded-2xl p-4 border border-slate-700">
+    <h3 class="font-semibold mb-3 text-sm flex items-center gap-2"><svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>Signaler une anomalie</h3>
+    <textarea id="anomaly-desc" placeholder="Décrivez l'anomalie..." class="w-full bg-slate-700 rounded-xl px-4 py-2 text-sm text-white placeholder-slate-500 border border-slate-600 focus:outline-none focus:border-orange-500 mb-3 h-20 resize-none"></textarea>
+    <button onclick="document.getElementById('anomaly-photo').click()" class="w-full py-3 bg-amber-500/20 text-amber-400 rounded-xl font-medium transition-all flex items-center justify-center gap-2 hover:bg-amber-500/30">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+      Prendre une photo
+    </button>
+    <input id="anomaly-photo" type="file" accept="image/*" capture="environment" class="hidden" onchange="handleAnomalyPhoto(this)">
+    <div id="anomaly-preview" class="mt-3 hidden">
+      <img id="anomaly-img" class="w-full rounded-xl border border-slate-600">
+      <button onclick="submitAnomaly()" class="w-full mt-3 py-3 bg-orange-500 hover:bg-orange-400 text-white rounded-xl font-semibold transition-all">Envoyer l'anomalie</button>
+    </div>
   </div>
 </div>
 
@@ -454,7 +471,7 @@ const BRIEFINGS = [
 const ZONES_BY_LEVEL = {
   'n-1': [
     { id: 'z1', name: 'Quai de livraison', type: 'logistique', color: 'bg-orange-400', agents: 1, assigned: null },
-    { id: 'z2', name: 'R-1 (Réserves)', type: 'nocturne', color: 'bg-violet-400', agents: 4, assigned: null },
+    { id: 'z2', name: 'R-1', type: 'nocturne', color: 'bg-violet-400', agents: 4, assigned: null },
   ],
   'rdc': [
     { id: 'z3', name: 'Entrée Principale', type: 'accueil', color: 'bg-amber-400', agents: 1, assigned: 'a1' },
@@ -737,24 +754,57 @@ function renderAgentHistory() {
 function agentCheckIn() {
   const agent = AGENTS.find(a => a.id === currentAgent);
   if (!agent) return;
+  const ptiInput = document.getElementById('agent-pti-input');
+  const pti = ptiInput ? ptiInput.value.trim() : '';
   const now = new Date();
   const timeStr = now.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
-  const entry = { id: Date.now(), agentId: agent.id, agentName: agent.name, type: 'checkin', time: timeStr, timestamp: now.toISOString(), zone: agent.zone };
+  const entry = { id: Date.now(), agentId: agent.id, agentName: agent.name, pti: pti || agent.pti, type: 'checkin', time: timeStr, timestamp: now.toISOString(), zone: agent.zone };
   checkInHistory.unshift(entry);
   localStorage.setItem('safepass_history', JSON.stringify(checkInHistory));
-  showToast(`Prise de poste : ${timeStr}`);
+  showToast(`Prise de poste : ${timeStr}${pti ? ' · PTI: ' + pti : ''}`);
   renderAgentHistory();
 }
 function agentCheckOut() {
   const agent = AGENTS.find(a => a.id === currentAgent);
   if (!agent) return;
+  const ptiInput = document.getElementById('agent-pti-input');
+  const pti = ptiInput ? ptiInput.value.trim() : '';
   const now = new Date();
   const timeStr = now.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
-  const entry = { id: Date.now(), agentId: agent.id, agentName: agent.name, type: 'checkout', time: timeStr, timestamp: now.toISOString(), zone: agent.zone };
+  const entry = { id: Date.now(), agentId: agent.id, agentName: agent.name, pti: pti || agent.pti, type: 'checkout', time: timeStr, timestamp: now.toISOString(), zone: agent.zone };
   checkInHistory.unshift(entry);
   localStorage.setItem('safepass_history', JSON.stringify(checkInHistory));
-  showToast(`Fin de service : ${timeStr}`);
+  showToast(`Fin de service : ${timeStr}${pti ? ' · PTI: ' + pti : ''}`);
   renderAgentHistory();
+}
+
+// ================== ANOMALIE PHOTO ==================
+function handleAnomalyPhoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    document.getElementById('anomaly-img').src = e.target.result;
+    document.getElementById('anomaly-preview').classList.remove('hidden');
+  };
+  reader.readAsDataURL(file);
+}
+function submitAnomaly() {
+  const desc = document.getElementById('anomaly-desc').value.trim();
+  const img = document.getElementById('anomaly-img').src;
+  if (!desc && !img.includes('data:image')) {
+    showToast('Décrivez l\'anomalie ou ajoutez une photo');
+    return;
+  }
+  const agent = AGENTS.find(a => a.id === currentAgent);
+  const anomaly = { id: Date.now(), agentId: agent.id, agentName: agent.name, desc, photo: img.includes('data:image') ? img : null, time: new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'}), timestamp: new Date().toISOString(), zone: agent.zone };
+  let anomalies = JSON.parse(localStorage.getItem('safepass_anomalies') || '[]');
+  anomalies.unshift(anomaly);
+  localStorage.setItem('safepass_anomalies', JSON.stringify(anomalies));
+  showToast('Anomalie signalée ✓');
+  document.getElementById('anomaly-desc').value = '';
+  document.getElementById('anomaly-preview').classList.add('hidden');
+  document.getElementById('anomaly-photo').value = '';
 }
 
 // ================== AGENT BRIEFINGS ==================
